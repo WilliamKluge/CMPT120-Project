@@ -1,9 +1,9 @@
-# Holds the DescriptionData class
+# Holds the DescriptionNode class
 # Author: William Kluge
 # Date: 2017-9-18
 
 
-class DescriptionData:
+class DescriptionNode(object):
     """Holds the data for describing an entity"""
 
     name = ""
