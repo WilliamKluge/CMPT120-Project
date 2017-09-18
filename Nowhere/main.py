@@ -4,7 +4,7 @@
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
-from Nowhere.EntityFramework.Systems.ImplimentedProcesses.DescriptionSystem import DescriptionSystem
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.DescriptionSystem import DescriptionSystem
 
 
 def main():

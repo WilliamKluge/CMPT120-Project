@@ -2,7 +2,7 @@
 # Author: William Kluge
 # Date: 2017-9-18
 
-from Nowhere.EntityFramework.Systems.SystemInterface import ISystem
+from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 
 
