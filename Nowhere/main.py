@@ -4,17 +4,8 @@
 from Nowhere.location import Location
 
 
-def change_location(next_location, score):
-    """Increases the player score, prints the new location the player is at, and prompts the user to continue
-
-    Keyword arguments:
-        next_location -- Location that the user will be moving to
-        score -- Score of the user
-    """
-    print("\nPlayer Score:", score)
-    print(next_location)
-    input("Press enter to continue.")
-    return next_location
+def change_location(place):
+    place.visited = True
 
 
 def main():
@@ -34,8 +25,8 @@ def main():
     # player_location = start
     score = 0
 
-    print("Nowhere\nYou don't know where you are or how you got there. Unless you can find a way to civilization or"
-          " figure out how to survive, you will die.")
+    # print("Nowhere\nYou don't know where you are or how you got there. Unless you can find a way to civilization or"
+    #       " figure out how to survive, you will die.")
 
     # player_location = change_location(start, score)
     # score += 5
@@ -48,9 +39,11 @@ def main():
     # player_location = change_location(watchtower, score)
     # score += 5
 
-    print("\nA helicopter comes and picks you up from the watchtower. You're saved!")
-    print("Final score:", score)
-    print("This game and its contents are all owned by William Kluge. Contact: klugewilliam@gmail.com")
+
+
+    # print("\nA helicopter comes and picks you up from the watchtower. You're saved!")
+    # print("Final score:", score)
+    # print("This game and its contents are all owned by William Kluge. Contact: klugewilliam@gmail.com")
 
 
 if __name__ == "__main__":
