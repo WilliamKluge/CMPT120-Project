@@ -55,7 +55,7 @@ def main():
 
     # print("\nA helicopter comes and picks you up from the watchtower. You're saved!")
     # print("Final score:", score)
-    # print("This game and its contents are all owned by William Kluge. Contact: klugewilliam@gmail.com")
+    print("This game and its contents are all owned by William Kluge. Contact: klugewilliam@gmail.com")
 
 
 if __name__ == "__main__":
