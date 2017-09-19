@@ -6,12 +6,16 @@ import threading
 import queue
 import pygame
 from pygame.locals import *
-import tkinter
+
+from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
 
 
 class Engine(object):
     """
     Manages the game loop and the processes that run within it
+    TODO Get locations and character into one array
     """
 
     continue_updating = True  # If the game should continue to be updated or if it should end
@@ -20,16 +24,19 @@ class Engine(object):
     __input_queue = queue.Queue  # Queue for user input
     __input_thread = threading.Thread  # Thread for getting user input
     __background = None  # Background of screen
+    __locations = dict()  # Stores locations in the game
+    character = None
 
     def __init__(self):
+        # Start input thread
         self.__input_queue = queue.Queue()
         self.__input_thread = threading.Thread(target=self.get_input, args=(self.__input_queue,), daemon=True)
         self.__input_thread.start()
         # Initialise screen
         pygame.init()
-        infoObject = pygame.display.Info()
-        self.screen = pygame.display.set_mode((int(infoObject.current_w / 1280) * 1200,
-                                               int(infoObject.current_h / 800) * 600))
+        info_object = pygame.display.Info()
+        self.screen = pygame.display.set_mode((int(info_object.current_w / 1280) * 1200,
+                                               int(info_object.current_h / 800) * 600))
         # self.__screen = pygame.display.set_mode((1200, 600))
         pygame.display.set_caption('Nowhere')
         # Fill background
@@ -56,6 +63,7 @@ class Engine(object):
         :return: None
         """
         self.screen.blit(self.__background, (0, 0))
+
         for i in self.__system_queue:
             if i[0].update(time):  # Update the system portion of the system/priority tuple
                 self.remove_process(i)
@@ -73,8 +81,8 @@ class Engine(object):
 
         if user_input == "quit":
             self.continue_updating = False
-        elif user_input == "dunkey":
-            print("spaghetti and meatballs")
+        elif user_input == "North":
+            self.add_system(MoveSystem(self.character, self, (1, 0, 0)), 0)
         elif user_input is not None:  # Not a known command, but there is still input
             print("Unknown command, try again")
 
@@ -86,6 +94,25 @@ class Engine(object):
         """
         process[0].end()
         self.__system_queue.remove(process)
+
+    def add_location(self, location, coordinate):
+        """
+        Adds a location to the game engine
+        :param location: The entity of the location to add
+        :param coordinate: Coordinate of the location (x, y, z)
+        :return: None
+        """
+        self.__locations[coordinate] = location
+
+    def add_character(self, entity):
+        """
+        Adds the controllable character to the engine
+        :param entity:
+        :return:
+        """
+        self.character = entity
+        self.add_system(DrawLocationSystem(
+            self.__locations[self.character.components[PositionNode.__name__].location], self), 1)
 
     @staticmethod
     def get_input(q):

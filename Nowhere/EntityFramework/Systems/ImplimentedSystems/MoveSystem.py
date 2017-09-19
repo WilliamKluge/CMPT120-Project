@@ -1,21 +1,23 @@
-# Holds the DrawLocationSystem class
+# Holds the MoveSystem class
 # Author: William Kluge
 # Date: 2017-9-18
 
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
-from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
+from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 import pygame
 
 
-class DrawLocationSystem(ISystem):
+class MoveSystem(ISystem):
     """Draws a scene"""
 
     target_entity = None
     engine = None
+    __amount = None
 
-    def __init__(self, entity, engine):
+    def __init__(self, entity, engine, amount):
         self.target_entity = entity
         self.engine = engine
+        self.__amount = amount
 
     def set_target(self, entity):
         self.target_entity = entity
@@ -25,10 +27,8 @@ class DrawLocationSystem(ISystem):
         return True
 
     def update(self, time):
-        w, h = self.engine.screen.get_size()
-        self.engine.screen.blit(self.target_entity.components[BackgroundNode.__name__].background_screen,
-                                [w * 0.20, h * 0.20])
-        return False
+        self.engine.character.components[PositionNode.__name__].location += self.__amount
+        return True
 
     def end(self):
         return

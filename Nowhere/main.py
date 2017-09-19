@@ -4,6 +4,7 @@
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
+from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DescriptionSystem import DescriptionSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
@@ -18,10 +19,13 @@ def main():
     start.add_component(DescriptionNode("Start", "You are in a foggy forest. The landscape around you is hard to see, "
                                                  "but you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/Background.png"))
-
-    engine.add_system(DescriptionSystem(start), 100)
-    engine.add_system(DrawLocationSystem(start, engine), 1)
     start.components[BackgroundNode.__name__].scale_image(engine)
+
+    player = Entity()
+    player.add_component(PositionNode((0, 0, 0)))
+
+    engine.add_location(start, (0, 0, 0))
+    engine.add_character(player)
 
     while engine.continue_updating:
         engine.update(0)
