@@ -7,6 +7,7 @@ from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DescriptionSystem import DescriptionSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
+import pygame
 
 
 def main():
@@ -20,6 +21,7 @@ def main():
 
     engine.add_system(DescriptionSystem(start), 100)
     engine.add_system(DrawLocationSystem(start, engine), 1)
+    start.components[BackgroundNode.__name__].scale_image(engine)
 
     while engine.continue_updating:
         engine.update(0)

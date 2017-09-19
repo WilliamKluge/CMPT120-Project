@@ -14,12 +14,12 @@ class Engine(object):
     Manages the game loop and the processes that run within it
     """
 
-    continue_updating = True
+    continue_updating = True  # If the game should continue to be updated or if it should end
+    screen = None  # The screen that the game is blited on
     __system_queue = []  # The processes to be run the update loop
-    __input_queue = queue.Queue
-    __input_thread = threading.Thread
-    __background = None
-    screen = None
+    __input_queue = queue.Queue  # Queue for user input
+    __input_thread = threading.Thread  # Thread for getting user input
+    __background = None  # Background of screen
 
     def __init__(self):
         self.__input_queue = queue.Queue()
@@ -55,6 +55,7 @@ class Engine(object):
         :param time: The delta time between the last loop and this one
         :return: None
         """
+        self.screen.blit(self.__background, (0, 0))
         for i in self.__system_queue:
             if i[0].update(time):  # Update the system portion of the system/priority tuple
                 self.remove_process(i)

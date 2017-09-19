@@ -29,7 +29,9 @@ class DrawLocationSystem(ISystem):
         return True
 
     def update(self, time):
-        self.engine.screen.blit(self.target_entity.components[BackgroundNode.__name__].background_sprite, [0, 0])
+        w, h = self.engine.screen.get_size()
+        self.engine.screen.blit(self.target_entity.components[BackgroundNode.__name__].background_screen,
+                                [w * 0.20, h * 0.20])
         return False
 
     def end(self):
