@@ -11,10 +11,9 @@ class ISystem(ABC):
     """
 
     @abstractmethod
-    def start(self, entity):
+    def start(self):
         """
         Run the first time the system starts
-        :param entity: Entity that this system will be targeting
         :return: A boolean indicating if the start was successful
         """
 

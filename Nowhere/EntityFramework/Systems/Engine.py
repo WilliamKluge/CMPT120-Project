@@ -4,6 +4,9 @@
 
 import threading
 import queue
+import pygame
+from pygame.locals import *
+import tkinter
 
 
 class Engine(object):
@@ -15,11 +18,24 @@ class Engine(object):
     __system_queue = []  # The processes to be run the update loop
     __input_queue = queue.Queue
     __input_thread = threading.Thread
+    __background = None
+    screen = None
 
     def __init__(self):
         self.__input_queue = queue.Queue()
         self.__input_thread = threading.Thread(target=self.get_input, args=(self.__input_queue,), daemon=True)
         self.__input_thread.start()
+        # Initialise screen
+        pygame.init()
+        infoObject = pygame.display.Info()
+        self.screen = pygame.display.set_mode((int(infoObject.current_w / 1280) * 1200,
+                                               int(infoObject.current_h / 800) * 600))
+        # self.__screen = pygame.display.set_mode((1200, 600))
+        pygame.display.set_caption('Nowhere')
+        # Fill background
+        self.__background = pygame.Surface(self.screen.get_size())
+        self.__background = self.__background.convert()
+        self.__background.fill((250, 250, 250))
 
     def add_system(self, process, priority):
         """
@@ -43,7 +59,13 @@ class Engine(object):
             if i[0].update(time):  # Update the system portion of the system/priority tuple
                 self.remove_process(i)
 
-        user_input = self.__input_queue.get()
+        # Blit everything to the screen
+        pygame.display.flip()
+
+        try:
+            user_input = self.__input_queue.get(False)
+        except queue.Empty:
+            user_input = None
 
         with self.__input_queue.mutex:
             self.__input_queue.queue.clear()

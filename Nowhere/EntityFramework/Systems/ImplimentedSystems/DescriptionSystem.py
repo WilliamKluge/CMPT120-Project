@@ -11,11 +11,14 @@ class DescriptionSystem(ISystem):
 
     target_entity = None
 
+    def __init__(self, entity):
+        self.target_entity = entity
+
     def set_target(self, entity):
         self.target_entity = entity
 
     @staticmethod
-    def start():
+    def start(self):
         return True
 
     def update(self, time):

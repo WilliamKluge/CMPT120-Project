@@ -3,8 +3,10 @@
 # Date: 2017-9-8
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
+from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DescriptionSystem import DescriptionSystem
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
 
 
 def main():
@@ -14,17 +16,15 @@ def main():
     start = Entity()
     start.add_component(DescriptionNode("Start", "You are in a foggy forest. The landscape around you is hard to see, "
                                                  "but you can make out some structure off in the distance"))
+    start.add_component(BackgroundNode("Assets/Background.png"))
 
-    test = DescriptionSystem()
-    test.set_target(start)
-    engine.add_system(test, 100)
+    engine.add_system(DescriptionSystem(start), 100)
+    engine.add_system(DrawLocationSystem(start, engine), 1)
 
     while engine.continue_updating:
         engine.update(0)
 
 
-    # start = Location("Start", ("You are in a foggy forest. The landscape around you is hard to see, but you can make "
-    #                            "out some structure off in the distance"))
     # forest_can = Location("can", ("You are getting closer to the structure. You see a tin can on the ground next to "
     #                               "you."))
     # forest_large_tree = ("The Large Tree", ("The structure is now clearly visible as some sort of watchtower. You also "

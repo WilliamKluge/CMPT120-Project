@@ -8,6 +8,11 @@ This game is called <i>Nowhere</i> and the main objective is to get somewhere.<b
 The player starts in the middle of Nowhere, a foggy forest landscape with a few structures surrounds them. Using
 their environment and wit they need to find their way back to somewhere before it is to late.
 
+## Dependencies
+* Pygame
+  * Installation instructions are platform specific - see 
+  <a href="http://www.pygame.org/wiki/GettingStarted#Pygame Installation">their website</a> for details.
+
 ## Project Structure
 * <b>EntityFramework</b><br>
   Contains code related to constructing the 
