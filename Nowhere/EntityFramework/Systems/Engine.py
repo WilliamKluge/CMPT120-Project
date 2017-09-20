@@ -20,12 +20,12 @@ class Engine(object):
 
     continue_updating = True  # If the game should continue to be updated or if it should end
     screen = None  # The screen that the game is blited on
+    locations = dict()  # Stores locations in the game
+    character = None
     __system_queue = []  # The processes to be run the update loop
     __input_queue = queue.Queue  # Queue for user input
     __input_thread = threading.Thread  # Thread for getting user input
     __background = None  # Background of screen
-    locations = dict()  # Stores locations in the game
-    character = None
 
     def __init__(self):
         # Start input thread
@@ -72,7 +72,7 @@ class Engine(object):
         pygame.display.flip()
 
         try:
-            user_input = self.__input_queue.get(False)
+            user_input = self.__input_queue.get(False).lower()
         except queue.Empty:
             user_input = None
 
@@ -81,7 +81,7 @@ class Engine(object):
 
         if user_input == "quit":
             self.continue_updating = False
-        elif user_input == "North":
+        elif user_input == "north":
             self.add_system(MoveSystem(self.character, self, (1, 0, 0)), 0)
         elif user_input == "debug":
             print(self.character.components[PositionNode.__name__].location)
