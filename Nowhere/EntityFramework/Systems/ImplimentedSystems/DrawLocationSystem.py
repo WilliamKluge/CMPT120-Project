@@ -1,7 +1,7 @@
 # Holds the DrawLocationSystem class
 # Author: William Kluge
 # Date: 2017-9-18
-
+from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 import pygame
@@ -25,9 +25,14 @@ class DrawLocationSystem(ISystem):
         return True
 
     def update(self, time):
+        # try:  # TODO improve this crap code (here for testing)
+        #     target_background = self.target_entity.components[BackgroundNode.__name__].background_screen
+        # except KeyError:
+        target_background = self.engine.locations[self.target_entity.components[PositionNode.__name__].location]\
+            .components[BackgroundNode.__name__].background_screen
+
         w, h = self.engine.screen.get_size()
-        self.engine.screen.blit(self.target_entity.components[BackgroundNode.__name__].background_screen,
-                                [w * 0.20, h * 0.20])
+        self.engine.screen.blit(target_background, [w * 0.20, h * 0.20])
         return False
 
     def end(self):

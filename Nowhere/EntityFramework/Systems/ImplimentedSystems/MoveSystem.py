@@ -28,6 +28,7 @@ class MoveSystem(ISystem):
 
     def update(self, time):
         self.engine.character.components[PositionNode.__name__].location += self.__amount
+        self.engine.remove_system()
         return True
 
     def end(self):

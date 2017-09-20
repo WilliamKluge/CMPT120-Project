@@ -24,7 +24,7 @@ class Engine(object):
     __input_queue = queue.Queue  # Queue for user input
     __input_thread = threading.Thread  # Thread for getting user input
     __background = None  # Background of screen
-    __locations = dict()  # Stores locations in the game
+    locations = dict()  # Stores locations in the game
     character = None
 
     def __init__(self):
@@ -66,7 +66,7 @@ class Engine(object):
 
         for i in self.__system_queue:
             if i[0].update(time):  # Update the system portion of the system/priority tuple
-                self.remove_process(i)
+                self.remove_system(i)
 
         # Blit everything to the screen
         pygame.display.flip()
@@ -83,17 +83,19 @@ class Engine(object):
             self.continue_updating = False
         elif user_input == "North":
             self.add_system(MoveSystem(self.character, self, (1, 0, 0)), 0)
+        elif user_input == "debug":
+            print(self.character.components[PositionNode.__name__].location)
         elif user_input is not None:  # Not a known command, but there is still input
             print("Unknown command, try again")
 
-    def remove_process(self, process):
+    def remove_system(self, system):
         """
         Safely removes a process from the queue
-        :param process: Process to remove
+        :param system: Process to remove
         :return: None
         """
-        process[0].end()
-        self.__system_queue.remove(process)
+        system[0].end()
+        self.__system_queue.remove(system)
 
     def add_location(self, location, coordinate):
         """
@@ -102,7 +104,7 @@ class Engine(object):
         :param coordinate: Coordinate of the location (x, y, z)
         :return: None
         """
-        self.__locations[coordinate] = location
+        self.locations[coordinate] = location
 
     def add_character(self, entity):
         """
@@ -111,8 +113,7 @@ class Engine(object):
         :return:
         """
         self.character = entity
-        self.add_system(DrawLocationSystem(
-            self.__locations[self.character.components[PositionNode.__name__].location], self), 1)
+        self.add_system(DrawLocationSystem(self.character, self), 1)
 
     @staticmethod
     def get_input(q):
