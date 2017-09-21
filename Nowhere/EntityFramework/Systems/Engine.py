@@ -80,8 +80,14 @@ class Engine(object):
 
         if user_input == "quit":
             self.continue_updating = False
-        elif user_input == "North":
+        elif user_input == "north":
             self.add_system(MoveSystem(self.character, self, (1, 0, 0), 0))
+        elif user_input == "south":
+            self.add_system(MoveSystem(self.character, self, (-1, 0, 0), 0))
+        elif user_input == "east":
+            self.add_system(MoveSystem(self.character, self, (0, 1, 0), 0))
+        elif user_input == "west":
+            self.add_system(MoveSystem(self.character, self, (0, -1, 0), 0))
         elif user_input == "debug":
             print(self.character.components[PositionNode.__name__].location)
         elif user_input is not None:  # Not a known command, but there is still input

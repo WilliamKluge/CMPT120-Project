@@ -31,7 +31,7 @@ def main():
     player.add_component(PositionNode((0, 0, 0)))
 
     engine.add_location(start, (0, 0, 0))
-    #engine.add_location(forest_can, (1, 0, 0))
+    engine.add_location(forest_can, (1, 0, 0))
     engine.add_character(player)
 
     while engine.continue_updating:
