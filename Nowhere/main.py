@@ -20,6 +20,7 @@ def main():
                                                  "but you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/Background.png"))
     start.components[BackgroundNode.__name__].scale_image(engine)
+
     forest_can = Entity()
     forest_can.add_component(DescriptionNode("Can", "You are getting closer to the structure. You see a tin can on the"
                                                     " ground next to you."))
@@ -30,7 +31,7 @@ def main():
     player.add_component(PositionNode((0, 0, 0)))
 
     engine.add_location(start, (0, 0, 0))
-    engine.add_location(forest_can, (1, 0, 0))
+    #engine.add_location(forest_can, (1, 0, 0))
     engine.add_character(player)
 
     while engine.continue_updating:

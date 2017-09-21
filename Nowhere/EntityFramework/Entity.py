@@ -11,7 +11,10 @@ class Entity(object):
     process for many different types of entities.
     """
 
-    components = dict()  # Dictionary story components. Key = type, Value = data of component
+    def __init__(self):
+        self.components = dict()
+
+    #components = dict()  # Dictionary story components. Key = type, Value = data of component
 
     def add_component(self, component):
         """

@@ -10,14 +10,11 @@ import pygame
 class MoveSystem(ISystem):
     """Draws a scene"""
 
-    target_entity = None
-    engine = None
-    __amount = None
-
-    def __init__(self, entity, engine, amount):
+    def __init__(self, entity, engine, amount, priority):
         self.target_entity = entity
         self.engine = engine
         self.__amount = amount
+        self.priority = priority
 
     def set_target(self, entity):
         self.target_entity = entity
@@ -28,7 +25,6 @@ class MoveSystem(ISystem):
 
     def update(self, time):
         self.engine.character.components[PositionNode.__name__].location += self.__amount
-        self.engine.remove_system()
         return True
 
     def end(self):

@@ -44,15 +44,14 @@ class Engine(object):
         self.__background = self.__background.convert()
         self.__background.fill((250, 250, 250))
 
-    def add_system(self, process, priority):
+    def add_system(self, process):
         """
         Adds a process to the queue
         :param process: Process to add
-        :param priority: When this should be run compared to other processes
         :return: None
         """
         if process.start:
-            self.__system_queue.append((process, priority))
+            self.__system_queue.append(process)
             return True
         return False
 
@@ -65,7 +64,7 @@ class Engine(object):
         self.screen.blit(self.__background, (0, 0))
 
         for i in self.__system_queue:
-            if i[0].update(time):  # Update the system portion of the system/priority tuple
+            if i.update(time):  # Update the system portion of the system/priority tuple
                 self.remove_system(i)
 
         # Blit everything to the screen
@@ -82,7 +81,7 @@ class Engine(object):
         if user_input == "quit":
             self.continue_updating = False
         elif user_input == "North":
-            self.add_system(MoveSystem(self.character, self, (1, 0, 0)), 0)
+            self.add_system(MoveSystem(self.character, self, (1, 0, 0), 0))
         elif user_input == "debug":
             print(self.character.components[PositionNode.__name__].location)
         elif user_input is not None:  # Not a known command, but there is still input
@@ -94,7 +93,7 @@ class Engine(object):
         :param system: Process to remove
         :return: None
         """
-        system[0].end()
+        system.end()
         self.__system_queue.remove(system)
 
     def add_location(self, location, coordinate):
@@ -113,7 +112,7 @@ class Engine(object):
         :return:
         """
         self.character = entity
-        self.add_system(DrawLocationSystem(self.character, self), 1)
+        self.add_system(DrawLocationSystem(self.character, self))
 
     @staticmethod
     def get_input(q):
