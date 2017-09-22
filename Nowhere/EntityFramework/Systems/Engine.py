@@ -40,6 +40,8 @@ class Engine(object):
         self.__background = pygame.Surface(self.screen.get_size())
         self.__background = self.__background.convert()
         self.__background.fill((250, 250, 250))
+        # Possible commands given characters location, surrounding items, etc.
+        self.__possible_commands = dict()
 
     def add_system(self, process):
         """
@@ -81,28 +83,24 @@ class Engine(object):
         for i in self.__handled_systems:
             i.update(time)
 
+        # Update user input (also draws possible commands to the screen)
+        self.__update_commands()
+
         # Blit everything to the screen
         pygame.display.flip()
 
         user_input = self.__input_box.value
-        # TODO better system for handling user input based on what is in the active location and user inventory
-        if user_input == "quit":
-            self.continue_updating = False
-        elif user_input == "north":
-            self.add_system(MoveSystem(self.character, self, (1, 0, 0), 0))
+
+        if user_input in self.__possible_commands:
+            self.add_system(self.__possible_commands[user_input])
             self.__input_box.value = ''
-        elif user_input == "south":
-            self.add_system(MoveSystem(self.character, self, (-1, 0, 0), 0))
-            self.__input_box.value = ''
-        elif user_input == "east":
-            self.add_system(MoveSystem(self.character, self, (0, 1, 0), 0))
-            self.__input_box.value = ''
-        elif user_input == "west":
-            self.add_system(MoveSystem(self.character, self, (0, -1, 0), 0))
-            self.__input_box.value = ''
-        elif user_input == "debug":
-            print(self.character.components[PositionNode.__name__].location)
-            self.__input_box.value = ''
+
+        # if user_input == "quit":
+        #     self.continue_updating = False
+        #     self.__input_box.value = ''
+        # elif user_input == "debug":
+        #     print(self.character.components[PositionNode.__name__].location)
+        #     self.__input_box.value = ''
 
     def remove_system(self, system):
         """
@@ -130,3 +128,39 @@ class Engine(object):
         """
         self.character = entity
         self.add_system(DrawLocationSystem(self.character, self))
+
+    def __update_commands(self):
+        # Clear the commands from the last iteration
+        self.__possible_commands.clear()
+        # Update where the character can move to
+        character_location = self.character.components[PositionNode.__name__].location
+
+        if tuple([sum(i) for i in zip(character_location, (1, 0, 0))]) in self.locations:
+            self.__possible_commands["north"] = MoveSystem(self.character, self, (1, 0, 0), 0)
+
+        if tuple([sum(i) for i in zip(character_location, (0, 1, 0))]) in self.locations:
+            self.__possible_commands["east"] = MoveSystem(self.character, self, (0, 1, 0), 0)
+
+        if tuple([sum(i) for i in zip(character_location, (-1, 0, 0))]) in self.locations:
+            self.__possible_commands["south"] = MoveSystem(self.character, self, (-1, 0, 0), 0)
+
+        if tuple([sum(i) for i in zip(character_location, (0, -1, 0))]) in self.locations:
+            self.__possible_commands["west"] = MoveSystem(self.character, self, (0, -1, 0), 0)
+
+        if tuple([sum(i) for i in zip(character_location, (0, 0, 1))]) in self.locations:
+            self.__possible_commands["up"] = MoveSystem(self.character, self, (0, 0, 1), 0)
+
+        if tuple([sum(i) for i in zip(character_location, (0, 0, -1))]) in self.locations:
+            self.__possible_commands["down"] = MoveSystem(self.character, self, (0, 0, -1), 0)
+
+        # Draw the command list to the screen
+        text = [self.game_font.render("Possible Commands:", 1, (0, 0, 0))]
+
+        for key in self.__possible_commands:
+            text.append(self.game_font.render(key, 1, (0, 0, 0)))
+
+        w, h = self.screen.get_size()
+        start_location = (int(w * 0.02), int(h * 0.25))
+        text_width, text_height = self.game_font.size("P")  # Just getting the height of the font
+        for i in range(len(text)):
+            self.screen.blit(text[i], tuple([sum(j) for j in zip(start_location, (0, text_height * i))]))

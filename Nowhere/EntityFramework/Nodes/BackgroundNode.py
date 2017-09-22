@@ -14,5 +14,10 @@ class BackgroundNode(object):
         self.background_screen = pygame.transform.scale(self.background_sprite, (int(w * 0.60), int(h * 0.60)))
 
     def scale_image(self, engine):
+        """
+        Scales the image of this class to properly fit in the game screen
+        :param engine: Engine that the game is running from
+        :return: None
+        """
         w, h = engine.screen.get_size()
         self.background_screen = pygame.transform.scale(self.background_sprite, (int(w * 0.60), int(h * 0.60)))
