@@ -14,27 +14,29 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSy
 class Engine(object):
     """
     Manages the game loop and the processes that run within it
-    TODO Get locations and character into one array
+    TODO Get all entities into one array
     """
 
     continue_updating = True  # If the game should continue to be updated or if it should end
     locations = dict()  # Stores locations in the game
-    character = None
-    game_font = None
+    character = None  # Character of the game
+    game_font = None  # Font to use for any text put on the screen
     __system_queue = []  # The processes to be run the update loop
     __handled_systems = []  # Systems controlled by other systems and can be run without checking their end state
 
     def __init__(self):
         # Initialise screen
         pygame.init()
+        pygame.display.set_caption('Nowhere')
         info_object = pygame.display.Info()
         self.screen = pygame.display.set_mode((int(info_object.current_w / 1280) * 1200,
                                                int(info_object.current_h / 800) * 600))
         # Initialize font
         self.game_font = pygame.font.SysFont("monospace", 15)
-        pygame.display.set_caption('Nowhere')
-        self.__input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='type here: ')
-        # Fill background
+        # Create input box
+        self.__input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter Command: ')
+        self.__input_box.set_font(self.game_font)
+        # Initialize and Fill background
         self.__background = pygame.Surface(self.screen.get_size())
         self.__background = self.__background.convert()
         self.__background.fill((250, 250, 250))
@@ -56,25 +58,26 @@ class Engine(object):
         :param time: The delta time between the last loop and this one
         :return: None
         """
+        # Draw the background created in __init__ to the screen
         self.screen.blit(self.__background, (0, 0))
 
-        # events for txtbx
+        # Events for self.__input_box
         events = pygame.event.get()
-        # process other events
+        # Process other events
         for event in events:
-            # close it x button si pressed
+            # Close if window is closed
             if event.type == QUIT:
                 return
 
-        # update txtbx
         self.__input_box.update(events)
-        # blit txtbx on the sceen
         self.__input_box.draw(self.screen)
 
+        # Update processes in the main queue of the game
         for i in self.__system_queue:
-            if i.update(time):  # Update the system portion of the system/priority tuple
+            if i.update(time):
                 self.remove_system(i)
 
+        # Update processes that are completely controlled by other processes
         for i in self.__handled_systems:
             i.update(time)
 
@@ -100,8 +103,6 @@ class Engine(object):
         elif user_input == "debug":
             print(self.character.components[PositionNode.__name__].location)
             self.__input_box.value = ''
-        # elif user_input is not None and user_input is not '':  # Not a known command, but there is still input
-        #    print("Unknown command\" ", user_input, "\" try again")
 
     def remove_system(self, system):
         """
@@ -129,16 +130,3 @@ class Engine(object):
         """
         self.character = entity
         self.add_system(DrawLocationSystem(self.character, self))
-
-    @staticmethod
-    def get_input(q):
-        """
-        Continuously gets input from the user and places it in the queue.
-        Because this is used with a thread that has the daemon=True attribute, it will automatically be killed when the
-        main process exits
-        :return: None
-        """
-        while True:
-            user_input = input("Enter a command")
-            if user_input != "":
-                q.put(user_input)
