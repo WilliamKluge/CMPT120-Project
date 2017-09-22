@@ -2,19 +2,25 @@
 # Author: William Kluge
 # Date: 2017-9-18
 
-from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
-import pygame
+from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
 class MoveSystem(ISystem):
     """Draws a scene"""
 
-    def __init__(self, entity, engine, amount, priority):
+    def __init__(self, entity, engine, priority, amount):
+        """
+        Moves the character by the specified amount
+        :param entity: Entity to move
+        :param engine: Engine controlling the game
+        :param priority: Priority of this process
+        :param amount: Amount to move the character (given in a tripple tuple such as (x, y, z))
+        """
         self.target_entity = entity
         self.engine = engine
-        self.__amount = amount
         self.priority = priority
+        self.__amount = amount
 
     def set_target(self, entity):
         self.target_entity = entity
@@ -23,11 +29,10 @@ class MoveSystem(ISystem):
     def start(self):
         return True
 
-    def update(self, time):
-        z = self.engine.character.components[PositionNode.__name__].location
-        new_location = (z[0] + self.__amount[0], z[1] + self.__amount[1], z[2] + self.__amount[2])
-        self.engine.character.components[PositionNode.__name__].location = new_location
-        print(self.engine.character.components[PositionNode.__name__].location)
+    def update(self, time):  # TODO make work for any given entity
+        character_position = self.engine.character.components[PositionNode.__name__]
+        new_location = tuple([sum(i) for i in zip(character_position.location, self.__amount)])
+        character_position.location = new_location
         return True
 
     def end(self):

@@ -3,9 +3,9 @@
 # Date: 2017-9-18
 
 import pygame
-import Nowhere.PygameLibraries.eztext as eztext
 from pygame.locals import *
 
+import Nowhere.PygameLibraries.eztext as eztext
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
@@ -128,26 +128,27 @@ class Engine(object):
     def __update_commands(self):
         # Clear the commands from the last iteration
         self.__possible_commands.clear()
+
         # Update where the character can move to
         character_location = self.character.components[PositionNode.__name__].location
 
         if tuple([sum(i) for i in zip(character_location, (1, 0, 0))]) in self.locations:
-            self.__possible_commands["north"] = MoveSystem(self.character, self, (1, 0, 0), 0)
+            self.__possible_commands["north"] = MoveSystem(self.character, self, 0, (1, 0, 0))
 
         if tuple([sum(i) for i in zip(character_location, (0, 1, 0))]) in self.locations:
-            self.__possible_commands["east"] = MoveSystem(self.character, self, (0, 1, 0), 0)
+            self.__possible_commands["east"] = MoveSystem(self.character, self, 0, (0, 1, 0))
 
         if tuple([sum(i) for i in zip(character_location, (-1, 0, 0))]) in self.locations:
-            self.__possible_commands["south"] = MoveSystem(self.character, self, (-1, 0, 0), 0)
+            self.__possible_commands["south"] = MoveSystem(self.character, self, 0, (-1, 0, 0))
 
         if tuple([sum(i) for i in zip(character_location, (0, -1, 0))]) in self.locations:
-            self.__possible_commands["west"] = MoveSystem(self.character, self, (0, -1, 0), 0)
+            self.__possible_commands["west"] = MoveSystem(self.character, self, 0, (0, -1, 0))
 
         if tuple([sum(i) for i in zip(character_location, (0, 0, 1))]) in self.locations:
-            self.__possible_commands["up"] = MoveSystem(self.character, self, (0, 0, 1), 0)
+            self.__possible_commands["up"] = MoveSystem(self.character, self, 0, (0, 0, 1))
 
         if tuple([sum(i) for i in zip(character_location, (0, 0, -1))]) in self.locations:
-            self.__possible_commands["down"] = MoveSystem(self.character, self, (0, 0, -1), 0)
+            self.__possible_commands["down"] = MoveSystem(self.character, self, 0, (0, 0, -1))
 
         # The default commands that can always be run
         self.__possible_commands["quit"] = QuitSystem(self)

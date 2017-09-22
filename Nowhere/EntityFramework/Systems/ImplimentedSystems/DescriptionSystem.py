@@ -2,14 +2,12 @@
 # Author: William Kluge
 # Date: 2017-9-18
 
-from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
+from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
 class DescriptionSystem(ISystem):
     """Prints the description for an entity"""
-
-    target_entity = None
 
     def __init__(self, entity):
         self.target_entity = entity
@@ -22,7 +20,7 @@ class DescriptionSystem(ISystem):
         return True
 
     def update(self, time):
-        print(self.target_entity.get_component(DescriptionNode.__name__).description)
+        print(self.target_entity.get_component(DescriptionNode.__name__).description)  # TODO update this for gui
         return True
 
     def end(self):

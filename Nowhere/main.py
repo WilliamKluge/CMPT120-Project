@@ -2,11 +2,10 @@
 # Author: William Kluge
 # Date: 2017-9-8
 from Nowhere.EntityFramework.Entity import Entity
-from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
+from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
-import pygame
 
 
 def main():
@@ -50,7 +49,7 @@ def main():
     engine.add_location(forest_can, (1, 0, 0))
     engine.add_location(forest_large_tree, (0, 1, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
-    engine.add_location(watchtower_stairs, (0, 1, 2))
+    engine.add_location(watchtower, (0, 1, 2))
     engine.add_character(player)
     # Basic game loop
     while engine.continue_updating:

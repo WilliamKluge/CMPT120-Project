@@ -9,9 +9,9 @@ class BackgroundNode(object):
     """Holds the data for describing an entity"""
 
     def __init__(self, path, engine):
-        self.background_sprite = pygame.image.load(path).convert()
+        background_sprite = pygame.image.load(path).convert()
         w, h = engine.screen.get_size()
-        self.background_screen = pygame.transform.scale(self.background_sprite, (int(w * 0.60), int(h * 0.60)))
+        self.background_screen = pygame.transform.scale(background_sprite, (int(w * 0.60), int(h * 0.60)))
 
     def scale_image(self, engine):
         """
@@ -20,4 +20,4 @@ class BackgroundNode(object):
         :return: None
         """
         w, h = engine.screen.get_size()
-        self.background_screen = pygame.transform.scale(self.background_sprite, (int(w * 0.60), int(h * 0.60)))
+        self.background_screen = pygame.transform.scale(self.background_screen, (int(w * 0.60), int(h * 0.60)))

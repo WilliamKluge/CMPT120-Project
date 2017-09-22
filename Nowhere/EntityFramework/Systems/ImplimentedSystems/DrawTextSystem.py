@@ -27,12 +27,11 @@ class DrawTextSystem(ISystem):
     def update(self, time):
         wrapped_text = textwrap.wrap(self.__text, 120)
 
-        text_width, text_height = self.__engine.game_font.size("P")  # Just getting the height of the font
+        text_width, text_height = self.__engine.game_font.size("P")  # Get the height of the font
         for i in range(len(wrapped_text)):
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
                                       tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
-        # draw_text(self.__engine.screen, self.__text, (0, 0, 0), self.__rect, self.__engine.game_font)
         return True
 
     def end(self):
