@@ -14,8 +14,6 @@ class Entity(object):
     def __init__(self):
         self.components = dict()
 
-    #components = dict()  # Dictionary story components. Key = type, Value = data of component
-
     def add_component(self, component):
         """
         Adds a component to this entity
