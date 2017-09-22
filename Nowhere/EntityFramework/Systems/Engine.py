@@ -2,9 +2,8 @@
 # Author: William Kluge
 # Date: 2017-9-18
 
-import threading
-import queue
 import pygame
+import Nowhere.PygameLibraries.eztext as eztext
 from pygame.locals import *
 
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
@@ -19,26 +18,22 @@ class Engine(object):
     """
 
     continue_updating = True  # If the game should continue to be updated or if it should end
-    screen = None  # The screen that the game is blited on
-    __system_queue = []  # The processes to be run the update loop
-    __input_queue = queue.Queue  # Queue for user input
-    __input_thread = threading.Thread  # Thread for getting user input
-    __background = None  # Background of screen
     locations = dict()  # Stores locations in the game
     character = None
+    game_font = None
+    __system_queue = []  # The processes to be run the update loop
+    __handled_systems = []  # Systems controlled by other systems and can be run without checking their end state
 
     def __init__(self):
-        # Start input thread
-        self.__input_queue = queue.Queue()
-        self.__input_thread = threading.Thread(target=self.get_input, args=(self.__input_queue,), daemon=True)
-        self.__input_thread.start()
         # Initialise screen
         pygame.init()
         info_object = pygame.display.Info()
         self.screen = pygame.display.set_mode((int(info_object.current_w / 1280) * 1200,
                                                int(info_object.current_h / 800) * 600))
-        # self.__screen = pygame.display.set_mode((1200, 600))
+        # Initialize font
+        self.game_font = pygame.font.SysFont("monospace", 15)
         pygame.display.set_caption('Nowhere')
+        self.__input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='type here: ')
         # Fill background
         self.__background = pygame.Surface(self.screen.get_size())
         self.__background = self.__background.convert()
@@ -63,35 +58,50 @@ class Engine(object):
         """
         self.screen.blit(self.__background, (0, 0))
 
+        # events for txtbx
+        events = pygame.event.get()
+        # process other events
+        for event in events:
+            # close it x button si pressed
+            if event.type == QUIT:
+                return
+
+        # update txtbx
+        self.__input_box.update(events)
+        # blit txtbx on the sceen
+        self.__input_box.draw(self.screen)
+
         for i in self.__system_queue:
             if i.update(time):  # Update the system portion of the system/priority tuple
                 self.remove_system(i)
 
+        for i in self.__handled_systems:
+            i.update(time)
+
         # Blit everything to the screen
         pygame.display.flip()
 
-        try:
-            user_input = self.__input_queue.get(False)
-        except queue.Empty:
-            user_input = None
-
-        with self.__input_queue.mutex:
-            self.__input_queue.queue.clear()
-
+        user_input = self.__input_box.value
+        # TODO better system for handling user input based on what is in the active location and user inventory
         if user_input == "quit":
             self.continue_updating = False
         elif user_input == "north":
             self.add_system(MoveSystem(self.character, self, (1, 0, 0), 0))
+            self.__input_box.value = ''
         elif user_input == "south":
             self.add_system(MoveSystem(self.character, self, (-1, 0, 0), 0))
+            self.__input_box.value = ''
         elif user_input == "east":
             self.add_system(MoveSystem(self.character, self, (0, 1, 0), 0))
+            self.__input_box.value = ''
         elif user_input == "west":
             self.add_system(MoveSystem(self.character, self, (0, -1, 0), 0))
+            self.__input_box.value = ''
         elif user_input == "debug":
             print(self.character.components[PositionNode.__name__].location)
-        elif user_input is not None:  # Not a known command, but there is still input
-            print("Unknown command, try again")
+            self.__input_box.value = ''
+        # elif user_input is not None and user_input is not '':  # Not a known command, but there is still input
+        #    print("Unknown command\" ", user_input, "\" try again")
 
     def remove_system(self, system):
         """

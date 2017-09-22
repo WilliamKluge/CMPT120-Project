@@ -29,4 +29,7 @@ their environment and wit they need to find their way back to somewhere before i
       Interface for building a system
   * <i>Entity.py</i>
     Definition of what an entity should be (essentially a container for nodes).
+* <b>PygameLibraries</b> Libraries that add to the functionality of pygame. These need to be bundled with the program 
+source.
+  * <i>eztext.py</i> Library for text input in the pygame gui
 * <i>main.py</i> The main function of the game
