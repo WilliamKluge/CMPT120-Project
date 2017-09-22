@@ -1,10 +1,7 @@
 # Holds the DrawTextSystem class
 # Author: William Kluge
 # Date: 2017-9-21
-from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
-from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
-import pygame
 
 
 class DrawTextSystem(ISystem):

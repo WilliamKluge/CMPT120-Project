@@ -9,6 +9,7 @@ from pygame.locals import *
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
 
 class Engine(object):
@@ -65,6 +66,7 @@ class Engine(object):
 
         # Events for self.__input_box
         events = pygame.event.get()
+
         # Process other events
         for event in events:
             # Close if window is closed
@@ -91,16 +93,10 @@ class Engine(object):
 
         user_input = self.__input_box.value
 
+        # Checks if the user input is one of the possible commands
         if user_input in self.__possible_commands:
             self.add_system(self.__possible_commands[user_input])
             self.__input_box.value = ''
-
-        # if user_input == "quit":
-        #     self.continue_updating = False
-        #     self.__input_box.value = ''
-        # elif user_input == "debug":
-        #     print(self.character.components[PositionNode.__name__].location)
-        #     self.__input_box.value = ''
 
     def remove_system(self, system):
         """
@@ -152,6 +148,9 @@ class Engine(object):
 
         if tuple([sum(i) for i in zip(character_location, (0, 0, -1))]) in self.locations:
             self.__possible_commands["down"] = MoveSystem(self.character, self, (0, 0, -1), 0)
+
+        # The default commands that can always be run
+        self.__possible_commands["quit"] = QuitSystem(self)
 
         # Draw the command list to the screen
         text = [self.game_font.render("Possible Commands:", 1, (0, 0, 0))]
