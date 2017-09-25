@@ -1,7 +1,7 @@
 # Holds the MoveSystem class
 # Author: William Kluge
 # Date: 2017-9-18
-
+from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
@@ -34,7 +34,13 @@ class MoveSystem(ISystem):
         character_position = self.engine.character.components[PositionNode.__name__]
         new_location = tuple([sum(i) for i in zip(character_position.location, self.__amount)])
         character_position.location = new_location
-        self.engine.character.components[ScoreNode.__name__].change_score(5)
+
+        character_locations_visited = self.engine.character.components[LocationsVisitedNode.__name__]
+
+        if not character_locations_visited.has_visited(new_location):
+            self.engine.character.components[ScoreNode.__name__].change_score(5)
+            character_locations_visited.visit_location(new_location)
+
         return True
 
     def end(self):
