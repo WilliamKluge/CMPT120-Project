@@ -36,8 +36,10 @@ class Engine(object):
         # Initialize font
         self.game_font = pygame.font.SysFont("monospace", 15)
         # Create input box
-        self.input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter Command: ')
+        self.input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter your name: ')
         self.input_box.set_font(self.game_font)
+        # Events that happen in the game
+        self.events = None
         # Initialize and Fill background
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
@@ -71,15 +73,12 @@ class Engine(object):
             self.screen.blit(self.background, (0, 0))
 
             # Events for self.__input_box
-            events = pygame.event.get()
+            self.events = pygame.event.get()
             # Process other events
-            for event in events:
+            for event in self.events:
                 # Close if window is closed
                 if event.type == QUIT:
                     return
-
-            self.input_box.update(events)
-            self.input_box.draw(self.screen)
 
             sorted(self.system_queue, key=lambda system: system.priority)  # Sorts systems based on their priority
 
@@ -91,6 +90,9 @@ class Engine(object):
             # Update processes that are completely controlled by other processes
             for i in self.__handled_systems:
                 i.update(current_time - last_time)
+
+            self.input_box.update(self.events)
+            self.input_box.draw(self.screen)
 
             # Blit everything to the screen
             pygame.display.flip()

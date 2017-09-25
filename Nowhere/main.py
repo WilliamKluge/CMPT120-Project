@@ -5,6 +5,7 @@ from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedNode
+from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
@@ -23,14 +24,14 @@ def main():
 
     # Start location
     start = Entity()
-    start.add_component(DescriptionNode("Start", "You are in a foggy forest. The landscape around you is hard to see, "
-                                                 "but you can make out some structure off in the distance"))
+    start.add_component(DescriptionNode("Start", "{0}, you are in a foggy forest. The landscape around you is hard to "
+                                                 "see, but you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
 
     # Forest can location
     forest_can = Entity()
-    forest_can.add_component(DescriptionNode("Can", "You are getting closer to the structure. You see a tin can on the"
-                                                    " ground next to you."))
+    forest_can.add_component(DescriptionNode("Can", "{0}, you are getting closer to the structure. You see a tin can on"
+                                                    " the ground next to you."))
     forest_can.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
 
     # Forest large tree location
@@ -52,8 +53,8 @@ def main():
     watchtower = Entity()
     watchtower.add_component(DescriptionNode("The Watchtower",
                                              "Standing on top of the watchtower you can see out for miles. As far as "
-                                             "you can tell, there is nothing but dense forest to your north, west, and"
-                                             " south, but there is an open field to you east."))
+                                             "you can tell, {0}, there is nothing but dense forest to your north, west,"
+                                             " and south, but there is an open field to you east."))
     watchtower.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
 
     # TODO add other location
@@ -63,6 +64,7 @@ def main():
     player.add_component(LocationsVisitedNode())
     player.add_component(PositionNode((0, 0, 0), player))
     player.add_component(ScoreNode())
+    player.add_component(NameNode())
 
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))

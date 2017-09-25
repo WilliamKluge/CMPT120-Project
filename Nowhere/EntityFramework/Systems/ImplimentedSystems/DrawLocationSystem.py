@@ -4,6 +4,7 @@
 
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
+from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
@@ -37,7 +38,8 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
         self.__engine.screen.blit(target_background, [w * 0.20, h * 0.20])
         self.__engine.add_system(DrawTextSystem(self.__engine,
                                                 target_location.components[DescriptionNode.__name__].description,
-                                                (w * 0.05, w * 0.05)))
+                                                (w * 0.05, w * 0.05),
+                                                self.__engine.character.components[NameNode.__name__].name))
         return False
 
     def end(self):

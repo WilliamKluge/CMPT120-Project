@@ -5,6 +5,7 @@ import textwrap
 
 import pygame
 
+from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem import UpdateCommandSystem
@@ -50,13 +51,17 @@ class TitleScreenSystem(ISystem):
             location = (w * 0.50 - (len(wrapped_text[i]) * text_width) / 2, h * 0.50 + text_height * (i + 1))
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)), location)
 
-        self.__engine.screen.blit(self.__engine.game_font.render("Press any key to start", 1, (0, 0, 0)),
+        self.__engine.screen.blit(self.__engine.game_font.render("Enter your name to start", 1, (0, 0, 0)),
                                   (w * 0.50 - (22 * text_width) / 2, h * 0.90))
 
-        return self.__engine.input_box.value  # Keep updating while the value in the box is empty
+        # Keep updating until the user presses enter and there is an actual value in the text box
+        return next((x for x in self.__engine.events if x.type == pygame.KEYDOWN and x.key == pygame.K_RETURN), None) \
+            and self.__engine.input_box.value
 
     def end(self):
+        self.__engine.character.components[NameNode.__name__].name = self.__engine.input_box.value
         self.__engine.input_box.value = ''  # Clear anything entered in the input box
+        self.__engine.input_box.prompt = 'Enter Command: '
         self.__engine.add_system(DrawLocationSystem(self.__engine.character, self.__engine))
         self.__engine.add_system(UpdateCommandSystem(self.__engine))
         return
