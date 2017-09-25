@@ -2,6 +2,8 @@
 # Author: William Kluge
 # Date: 2017-9-18
 
+import time
+
 import pygame
 from pygame.locals import *
 
@@ -57,53 +59,58 @@ class Engine(object):
             return True
         return False
 
-    def update(self, time):
+    def update(self):
         """
-        Updates the running processes
-        :param time: The delta time between the last loop and this one
+        Runs the game
         :return: None
         """
-        # Draw the background created in __init__ to the screen
-        self.screen.blit(self.__background, (0, 0))
 
-        # Draws the user's score
-        self.add_system(DrawTextSystem(self,
-                                       "Score: " + str(self.character.components[ScoreNode.__name__].score),
-                                       (500, 0)))
+        last_time = time.clock()
 
-        # Events for self.__input_box
-        events = pygame.event.get()
+        while self.continue_updating:
+            current_time = time.clock()
 
-        # Process other events
-        for event in events:
-            # Close if window is closed
-            if event.type == QUIT:
-                return
+            # Draw the background created in __init__ to the screen
+            self.screen.blit(self.__background, (0, 0))
 
-        self.__input_box.update(events)
-        self.__input_box.draw(self.screen)
+            # Draws the user's score
+            self.add_system(DrawTextSystem(self,
+                                           "Score: " + str(self.character.components[ScoreNode.__name__].score),
+                                           (500, 0)))  # TODO get actual position for this
 
-        # Update processes in the main queue of the game
-        for i in self.__system_queue:
-            if i.update(time):
-                self.remove_system(i)
+            # Events for self.__input_box
+            events = pygame.event.get()
 
-        # Update processes that are completely controlled by other processes
-        for i in self.__handled_systems:
-            i.update(time)
+            # Process other events
+            for event in events:
+                # Close if window is closed
+                if event.type == QUIT:
+                    return
 
-        # Update user input (also draws possible commands to the screen)
-        self.__update_commands()
+            self.__input_box.update(events)
+            self.__input_box.draw(self.screen)
 
-        # Blit everything to the screen
-        pygame.display.flip()
+            # Update processes in the main queue of the game
+            for i in self.__system_queue:
+                if i.update(current_time - last_time):
+                    self.remove_system(i)
 
-        user_input = self.__input_box.value
+            # Update processes that are completely controlled by other processes
+            for i in self.__handled_systems:
+                i.update(current_time - last_time)
 
-        # Checks if the user input is one of the possible commands
-        if user_input in self.__possible_commands:
-            self.add_system(self.__possible_commands[user_input])
-            self.__input_box.value = ''
+            # Update user input (also draws possible commands to the screen)
+            self.__update_commands()
+
+            # Blit everything to the screen
+            pygame.display.flip()
+
+            user_input = self.__input_box.value
+
+            # Checks if the user input is one of the possible commands
+            if user_input in self.__possible_commands:
+                self.add_system(self.__possible_commands[user_input])
+                self.__input_box.value = ''
 
     def remove_system(self, system):
         """
