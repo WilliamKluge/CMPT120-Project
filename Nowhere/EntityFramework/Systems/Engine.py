@@ -163,6 +163,10 @@ class Engine(object):
         self.__possible_commands["quit"] = QuitSystem(self, "This game and its contents are all owned by William Kluge."
                                                             " Contact: klugewilliam@gmail.com")
 
+        # self.__possible_commands["help"] = DrawTextSystem(self, "Commands are located on the left of the screen.\n"
+        #                                                         "Each direction command moves you in that direction."
+        #                                                         "The quit command exits the game.", (50, 20))
+
         # Draw the command list to the screen
         text = [self.game_font.render("Possible Commands:", 1, (0, 0, 0))]
 
