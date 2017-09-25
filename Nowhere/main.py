@@ -5,6 +5,7 @@ from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
+from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
 
 
@@ -44,6 +45,7 @@ def main():
     # Player
     player = Entity()
     player.add_component(PositionNode((0, 0, 0)))
+    player.add_component(ScoreNode())
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))
     engine.add_location(forest_can, (1, 0, 0))

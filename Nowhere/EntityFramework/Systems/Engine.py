@@ -7,7 +7,9 @@ from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
+from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
@@ -63,6 +65,11 @@ class Engine(object):
         """
         # Draw the background created in __init__ to the screen
         self.screen.blit(self.__background, (0, 0))
+
+        # Draws the user's score
+        self.add_system(DrawTextSystem(self,
+                                       "Score: " + str(self.character.components[ScoreNode.__name__].score),
+                                       (500, 0)))
 
         # Events for self.__input_box
         events = pygame.event.get()
