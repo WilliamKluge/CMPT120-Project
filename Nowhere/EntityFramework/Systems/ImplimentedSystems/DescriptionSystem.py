@@ -9,8 +9,13 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 class DescriptionSystem(ISystem):
     """Prints the description for an entity"""
 
+    @property
+    def priority(self):
+        return 100
+
     def __init__(self, entity):
         self.target_entity = entity
+        self.__priority = 0
 
     def set_target(self, entity):
         self.target_entity = entity

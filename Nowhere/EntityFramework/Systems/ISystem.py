@@ -10,6 +10,11 @@ class ISystem(ABC):
     Base class for a system
     """
 
+    @property
+    @abstractmethod
+    def priority(self):
+        pass
+
     @abstractmethod
     def start(self):
         """

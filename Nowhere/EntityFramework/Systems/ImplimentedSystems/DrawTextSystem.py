@@ -9,6 +9,10 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 class DrawTextSystem(ISystem):
     """Draws text"""
 
+    @property
+    def priority(self):
+        return 100
+
     def __init__(self, engine, text, location):
         """
         Draws text to the screen

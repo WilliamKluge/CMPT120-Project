@@ -12,6 +12,10 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import Dr
 class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the character
     """Draws a scene"""             # (only need to render when location changes)
 
+    @property
+    def priority(self):
+        return 100
+
     def __init__(self, entity, engine):
         self.__target_entity = entity
         self.__engine = engine

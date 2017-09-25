@@ -10,7 +10,6 @@ from pygame.locals import *
 import Nowhere.PygameLibraries.eztext as eztext
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
@@ -26,7 +25,7 @@ class Engine(object):
     locations = dict()  # Stores locations in the game
     character = None  # Character of the game
     game_font = None  # Font to use for any text put on the screen
-    __system_queue = []  # The processes to be run the update loop
+    system_queue = []  # The processes to be run the update loop
     __handled_systems = []  # Systems controlled by other systems and can be run without checking their end state
 
     def __init__(self):
@@ -39,12 +38,12 @@ class Engine(object):
         # Initialize font
         self.game_font = pygame.font.SysFont("monospace", 15)
         # Create input box
-        self.__input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter Command: ')
-        self.__input_box.set_font(self.game_font)
+        self.input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter Command: ')
+        self.input_box.set_font(self.game_font)
         # Initialize and Fill background
-        self.__background = pygame.Surface(self.screen.get_size())
-        self.__background = self.__background.convert()
-        self.__background.fill((250, 250, 250))
+        self.background = pygame.Surface(self.screen.get_size())
+        self.background = self.background.convert()
+        self.background.fill((250, 250, 250))
         # Possible commands given characters location, surrounding items, etc.
         self.__possible_commands = dict()
 
@@ -55,7 +54,7 @@ class Engine(object):
         :return: None
         """
         if process.start:
-            self.__system_queue.append(process)
+            self.system_queue.append(process)
             return True
         return False
 
@@ -65,15 +64,13 @@ class Engine(object):
         :return: None
         """
 
-        # TODO put introduction stuff here before main game loop
-
         last_time = time.clock()
 
         while self.continue_updating:
             current_time = time.clock()
             w, h = self.screen.get_size()
             # Draw the background created in __init__ to the screen
-            self.screen.blit(self.__background, (0, 0))
+            self.screen.blit(self.background, (0, 0))
 
             # Draws the user's score
             self.add_system(DrawTextSystem(self,
@@ -89,11 +86,13 @@ class Engine(object):
                 if event.type == QUIT:
                     return
 
-            self.__input_box.update(events)
-            self.__input_box.draw(self.screen)
+            self.input_box.update(events)
+            self.input_box.draw(self.screen)
+
+            sorted(self.system_queue, key=lambda system: system.priority)
 
             # Update processes in the main queue of the game
-            for i in self.__system_queue:
+            for i in self.system_queue:
                 if i.update(current_time - last_time):
                     self.remove_system(i)
 
@@ -101,18 +100,15 @@ class Engine(object):
             for i in self.__handled_systems:
                 i.update(current_time - last_time)
 
-            # Update user input (also draws possible commands to the screen)
-            self.__update_commands()
-
             # Blit everything to the screen
             pygame.display.flip()
 
-            user_input = self.__input_box.value
+            user_input = self.input_box.value
 
             # Checks if the user input is one of the possible commands
             if user_input in self.__possible_commands:
                 self.add_system(self.__possible_commands[user_input])
-                self.__input_box.value = ''
+                self.input_box.value = ''
 
     def remove_system(self, system):
         """
@@ -121,7 +117,7 @@ class Engine(object):
         :return: None
         """
         system.end()
-        self.__system_queue.remove(system)
+        self.system_queue.remove(system)
 
     def add_location(self, location, coordinate):
         """
@@ -139,9 +135,8 @@ class Engine(object):
         :return:
         """
         self.character = entity
-        self.add_system(DrawLocationSystem(self.character, self))
 
-    def __update_commands(self):
+    def update_commands(self):
         # Clear the commands from the last iteration
         self.__possible_commands.clear()
 
@@ -167,7 +162,8 @@ class Engine(object):
             self.__possible_commands["down"] = MoveSystem(self.character, self, 0, (0, 0, -1))
 
         # The default commands that can always be run
-        self.__possible_commands["quit"] = QuitSystem(self)
+        self.__possible_commands["quit"] = QuitSystem(self, "This game and its contents are all owned by William Kluge."
+                                                            " Contact: klugewilliam@gmail.com")
 
         # Draw the command list to the screen
         text = [self.game_font.render("Possible Commands:", 1, (0, 0, 0))]

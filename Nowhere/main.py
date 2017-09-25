@@ -8,11 +8,18 @@ from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedN
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.TitleScreenSystem import TitleScreenSystem
 
 
 def main():
     # Game engine
     engine = Engine()
+
+    # Adds the title screen to the game
+    engine.add_system(TitleScreenSystem(engine,
+                                        "Nowhere",
+                                        "You don't know where you are or how you got there. Unless you can find a way "
+                                        "to civilization or figure out how to survive, you will die."))
 
     # Start location
     start = Entity()
@@ -54,7 +61,7 @@ def main():
     # Player TODO add character name
     player = Entity()
     player.add_component(LocationsVisitedNode())
-    player.add_component(PositionNode(player, (0, 0, 0)))
+    player.add_component(PositionNode((0, 0, 0), player))
     player.add_component(ScoreNode())
 
     # Add entities to the game engine
@@ -65,14 +72,8 @@ def main():
     engine.add_location(watchtower, (0, 1, 2))
     engine.add_character(player)
 
-    # Basic game loop
+    # Starts the engine updating process
     engine.update()
-
-    # print("Nowhere\nYou don't know where you are or how you got there. Unless you can find a way to civilization or"
-    #       " figure out how to survive, you will die.")
-
-    print("This game and its contents are all owned by William Kluge. Contact: klugewilliam@gmail.com")
-
 
 if __name__ == "__main__":
     main()
