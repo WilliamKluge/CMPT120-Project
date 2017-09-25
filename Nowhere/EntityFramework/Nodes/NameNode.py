@@ -1,6 +1,6 @@
 # Holds the LocationNode class
 # Author: William Kluge
-# Date: 2017-9-18
+# Date: 2017-9-25
 
 
 class NameNode(object):

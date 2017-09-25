@@ -1,6 +1,6 @@
-# Holds the DrawTextSystem class
+# Holds the TitleScreenSystem class
 # Author: William Kluge
-# Date: 2017-9-21
+# Date: 2017-9-25
 import textwrap
 
 import pygame

@@ -57,6 +57,13 @@ def main():
                                              " and south, but there is an open field to you east."))
     watchtower.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
 
+    # Dense forest
+    dense_forest = Entity()
+    dense_forest.add_component(DescriptionNode("Dense Forest",
+                                               "You are barley able to get through to this part of the forest it is"
+                                               "is dense. {0}, you can't travel any further in this direction."))
+    dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+
     # TODO add other location
 
     # Player TODO add character name
@@ -72,6 +79,7 @@ def main():
     engine.add_location(forest_large_tree, (0, 1, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
     engine.add_location(watchtower, (0, 1, 2))
+    engine.add_location(dense_forest, (0, -1, 0))
     engine.add_character(player)
 
     # Starts the engine updating process

@@ -1,4 +1,4 @@
-# Holds the LocationNode class
+# Holds the PositionNode class
 # Author: William Kluge
 # Date: 2017-9-18
 from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedNode

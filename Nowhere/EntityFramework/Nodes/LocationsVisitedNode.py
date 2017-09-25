@@ -1,4 +1,4 @@
-# Holds the RouteNode class
+# Holds the LocationsVisitedNode class
 # Author: William Kluge
 # Date: 2017-9-22
 
