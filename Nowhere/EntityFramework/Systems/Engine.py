@@ -9,8 +9,6 @@ from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
-from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
@@ -68,18 +66,12 @@ class Engine(object):
 
         while self.continue_updating:
             current_time = time.clock()
-            w, h = self.screen.get_size()
+
             # Draw the background created in __init__ to the screen
             self.screen.blit(self.background, (0, 0))
 
-            # Draws the user's score
-            self.add_system(DrawTextSystem(self,
-                                           "Score: " + str(self.character.components[ScoreNode.__name__].score),
-                                           (w * 0.90, 0)))
-
             # Events for self.__input_box
             events = pygame.event.get()
-
             # Process other events
             for event in events:
                 # Close if window is closed
@@ -89,7 +81,7 @@ class Engine(object):
             self.input_box.update(events)
             self.input_box.draw(self.screen)
 
-            sorted(self.system_queue, key=lambda system: system.priority)
+            sorted(self.system_queue, key=lambda system: system.priority)  # Sorts systems based on their priority
 
             # Update processes in the main queue of the game
             for i in self.system_queue:
@@ -102,13 +94,6 @@ class Engine(object):
 
             # Blit everything to the screen
             pygame.display.flip()
-
-            user_input = self.input_box.value
-
-            # Checks if the user input is one of the possible commands
-            if user_input in self.__possible_commands:
-                self.add_system(self.__possible_commands[user_input])
-                self.input_box.value = ''
 
     def remove_system(self, system):
         """
@@ -137,6 +122,17 @@ class Engine(object):
         self.character = entity
 
     def update_commands(self):
+        """
+        Checks if the user has input a command and then tells the user what commands are available
+        :return: None
+        """
+        # Checks if the user input is one of the possible commands
+        user_input = self.input_box.value
+
+        if user_input in self.__possible_commands:
+            self.add_system(self.__possible_commands[user_input])
+            self.input_box.value = ''
+
         # Clear the commands from the last iteration
         self.__possible_commands.clear()
 
