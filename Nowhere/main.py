@@ -64,9 +64,7 @@ def main():
                                                "is dense. {0}, you can't travel any further in this direction."))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
 
-    # TODO add other location
-
-    # Player TODO add character name
+    # Player
     player = Entity()
     player.add_component(LocationsVisitedNode())
     player.add_component(PositionNode((0, 0, 0), player))
@@ -84,6 +82,7 @@ def main():
 
     # Starts the engine updating process
     engine.update()
+
 
 if __name__ == "__main__":
     main()

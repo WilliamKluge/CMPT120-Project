@@ -41,7 +41,7 @@ class DrawTextSystem(ISystem):
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
                                       tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
-        return True
+        return self.__engine.input_box.value
 
     def end(self):
         return
