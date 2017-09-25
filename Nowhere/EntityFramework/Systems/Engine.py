@@ -9,6 +9,7 @@ from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
+from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
