@@ -49,7 +49,9 @@ def main():
                                              " south, but there is an open field to you east."))
     watchtower.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
 
-    # Player
+    # TODO add other location
+
+    # Player TODO add character name
     player = Entity()
     player.add_component(LocationsVisitedNode())
     player.add_component(PositionNode(player, (0, 0, 0)))
@@ -65,8 +67,6 @@ def main():
 
     # Basic game loop
     engine.update()
-
-    # score = 0
 
     # print("Nowhere\nYou don't know where you are or how you got there. Unless you can find a way to civilization or"
     #       " figure out how to survive, you will die.")

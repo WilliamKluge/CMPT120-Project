@@ -65,18 +65,20 @@ class Engine(object):
         :return: None
         """
 
+        # TODO put introduction stuff here before main game loop
+
         last_time = time.clock()
 
         while self.continue_updating:
             current_time = time.clock()
-
+            w, h = self.screen.get_size()
             # Draw the background created in __init__ to the screen
             self.screen.blit(self.__background, (0, 0))
 
             # Draws the user's score
             self.add_system(DrawTextSystem(self,
                                            "Score: " + str(self.character.components[ScoreNode.__name__].score),
-                                           (500, 0)))  # TODO get actual position for this
+                                           (w * 0.90, 0)))
 
             # Events for self.__input_box
             events = pygame.event.get()
