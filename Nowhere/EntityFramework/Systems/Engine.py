@@ -124,6 +124,17 @@ class Engine(object):
         """
         self.character = entity
 
+    @staticmethod
+    def vertical_add(tuple_one, tuple_two):
+        """
+        Adds two tuple vertically.
+        If tuples (1, 2, 3) and (1, 2, 3) are given tuple (2, 4, 6) will be returned
+        :param tuple_one: First tuple to add
+        :param tuple_two: Second tuple to add
+        :return: tuple_one and tuple_two added together
+        """
+        return tuple([sum(i) for i in zip(tuple_one, tuple_two)])
+
     def update_commands(self):
         """
         Checks if the user has input a command and then tells the user what commands are available
@@ -142,22 +153,22 @@ class Engine(object):
         # Update where the character can move to
         character_location = self.character.components[PositionNode.__name__].location
 
-        if tuple([sum(i) for i in zip(character_location, (1, 0, 0))]) in self.locations:
+        if self.vertical_add(character_location, (1, 0, 0)) in self.locations:
             self.__possible_commands["north"] = MoveSystem(self.character, self, 0, (1, 0, 0))
 
-        if tuple([sum(i) for i in zip(character_location, (0, 1, 0))]) in self.locations:
+        if self.vertical_add(character_location, (0, 1, 0)) in self.locations:
             self.__possible_commands["east"] = MoveSystem(self.character, self, 0, (0, 1, 0))
 
-        if tuple([sum(i) for i in zip(character_location, (-1, 0, 0))]) in self.locations:
+        if self.vertical_add(character_location, (-1, 0, 0)) in self.locations:
             self.__possible_commands["south"] = MoveSystem(self.character, self, 0, (-1, 0, 0))
 
-        if tuple([sum(i) for i in zip(character_location, (0, -1, 0))]) in self.locations:
+        if self.vertical_add(character_location, (0, -1, 0)) in self.locations:
             self.__possible_commands["west"] = MoveSystem(self.character, self, 0, (0, -1, 0))
 
-        if tuple([sum(i) for i in zip(character_location, (0, 0, 1))]) in self.locations:
+        if self.vertical_add(character_location, (0, 0, 1)) in self.locations:
             self.__possible_commands["up"] = MoveSystem(self.character, self, 0, (0, 0, 1))
 
-        if tuple([sum(i) for i in zip(character_location, (0, 0, -1))]) in self.locations:
+        if self.vertical_add(character_location, (0, 0, -1)) in self.locations:
             self.__possible_commands["down"] = MoveSystem(self.character, self, 0, (0, 0, -1))
 
         # The default commands that can always be run
