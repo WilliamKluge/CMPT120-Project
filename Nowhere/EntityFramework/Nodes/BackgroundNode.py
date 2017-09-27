@@ -19,5 +19,7 @@ class BackgroundNode(object):
         :param engine: Engine that the game is running from
         :return: None
         """
+        # Get sizes
         w, h = engine.screen.get_size()
+        # Scale background to new size
         self.background_screen = pygame.transform.scale(self.background_screen, (int(w * 0.60), int(h * 0.60)))

@@ -19,7 +19,6 @@ class Engine(object):
     Manages the game loop and the processes that run within it
     TODO Get all entities into one array
     """
-
     continue_updating = True  # If the game should continue to be updated or if it should end
     locations = dict()  # Stores locations in the game
     character = None  # Character of the game
@@ -34,17 +33,22 @@ class Engine(object):
         info_object = pygame.display.Info()
         self.screen = pygame.display.set_mode((int(info_object.current_w / 1280) * 1200,
                                                int(info_object.current_h / 800) * 600))
+
         # Initialize font
         self.game_font = pygame.font.SysFont("monospace", 15)
+
         # Create input box
         self.input_box = eztext.Input(maxlength=45, color=(0, 0, 0), prompt='Enter your name: ')
         self.input_box.set_font(self.game_font)
+
         # Events that happen in the game
         self.events = None
+
         # Initialize and Fill background
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((250, 250, 250))
+
         # Possible commands given characters location, surrounding items, etc.
         self.__possible_commands = dict()
 
@@ -64,7 +68,6 @@ class Engine(object):
         Runs the game
         :return: None
         """
-
         last_time = time.clock()
 
         while self.continue_updating:
@@ -189,4 +192,4 @@ class Engine(object):
         start_location = (int(w * 0.02), int(h * 0.25))
         text_width, text_height = self.game_font.size("P")  # Just getting the height of the font
         for i in range(len(text)):
-            self.screen.blit(text[i], tuple([sum(j) for j in zip(start_location, (0, text_height * i))]))
+            self.screen.blit(text[i], self.vertical_add(start_location, (0, text_height * i)))

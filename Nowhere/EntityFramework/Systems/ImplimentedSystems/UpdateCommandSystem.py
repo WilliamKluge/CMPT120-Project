@@ -27,12 +27,12 @@ class UpdateCommandSystem(ISystem):
         # Update user input (also draws possible commands to the screen)
         self.__engine.update_commands()
 
-        w, h = self.__engine.screen.get_size()
+        w, h = self.__engine.screen.get_size()  # Gets the size of the screen
 
         # Draws the user's score
         self.__engine.add_system(DrawTextSystem(self.__engine,
-                                                "Score: " + str(
-                                                    self.__engine.character.components[ScoreNode.__name__].score),
+                                                "Score: "
+                                                + str(self.__engine.character.components[ScoreNode.__name__].score),
                                                 (w * 0.90, 0)))
 
         return False

@@ -37,7 +37,7 @@ class MoveSystem(ISystem):
 
     def update(self, time):  # TODO make work for any given entity
         character_position = self.engine.character.components[PositionNode.__name__]
-        new_location = tuple([sum(i) for i in zip(character_position.location, self.__amount)])
+        new_location = self.engine.vertical_add(character_position.location, self.__amount)
         character_position.location = new_location
 
         character_locations_visited = self.engine.character.components[LocationsVisitedNode.__name__]

@@ -6,6 +6,8 @@
 class DescriptionNode(object):
     """Holds the data for describing an entity"""
 
-    def __init__(self, name, description):
-        self.name = name
+    def __init__(self, description):
+        """
+        :param description: The description of the entity
+        """
         self.description = description

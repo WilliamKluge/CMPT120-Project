@@ -6,12 +6,12 @@ import textwrap
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
-class DrawTextSystem(ISystem):
+class DrawTextSystem(ISystem):  # TODO create a way to center text on the location
     """Draws text"""
 
     @property
     def priority(self):
-        return 100
+        return 100  # Low priority system
 
     def __init__(self, engine, text, location, format_text=None):
         """
@@ -26,6 +26,7 @@ class DrawTextSystem(ISystem):
         self.__text = text
         self.__location = location
 
+        # If format_text was entered (it is not empty), reformat the text to include the new formatting
         if format_text:
             self.__text = self.__text.format(format_text)
 
@@ -41,7 +42,7 @@ class DrawTextSystem(ISystem):
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
                                       tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
-        return True  # self.__engine.input_box.value
+        return True
 
     def end(self):
         return

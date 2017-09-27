@@ -13,7 +13,7 @@ class QuitSystem(ISystem):
 
     @property
     def priority(self):
-        return 0
+        return 0  # High priority system
 
     def __init__(self, engine, text):
         """
@@ -26,19 +26,25 @@ class QuitSystem(ISystem):
         self.background = pygame.Surface(engine.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
-        self.start()
 
     def start(self):
         return True
 
-    def update(self, time):  # TODO clean this up
+    def update(self, time):  # TODO make this use DrawTextSystem
+        # Remove all systems from the engine queue
         self.__engine.system_queue.clear()
+        # Add self back to the engine queue
         self.__engine.system_queue.append(self)
+
+        # Wrap text
         line_length = 120
         wrapped_text = textwrap.wrap(self.__text, line_length)
+
+        # Get sizes
         w, h = self.__engine.screen.get_size()
         text_width, text_height = self.__engine.game_font.size("P")  # Get the height of the font
 
+        # Blit self's background
         self.__engine.screen.blit(self.background, (0, 0))
 
         for i in range(len(wrapped_text)):

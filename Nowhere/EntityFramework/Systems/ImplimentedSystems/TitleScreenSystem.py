@@ -36,21 +36,29 @@ class TitleScreenSystem(ISystem):
     def start(self):
         return True
 
-    def update(self, time):  # TODO clean this up
+    def update(self, time):  # TODO use DrawTextSystem for this
+        # Length of one line (in characters)
         line_length = 120
+        # Wrap the text so that it does not exceed line_length characters per line
         wrapped_text = textwrap.wrap(self.__text, line_length)
+        # Get screen size
         w, h = self.__engine.screen.get_size()
-        text_width, text_height = self.__engine.game_font.size("P")  # Get the height of the font
+        # Get the height of the font
+        text_width, text_height = self.__engine.game_font.size("P")
 
+        # Blits the title screen's (self's) background
         self.__engine.screen.blit(self.background, (0, 0))
 
+        # Blits the title
         location = (w * 0.50 - (len(self.__title) * text_width) / 2, h * 0.50)
         self.__engine.screen.blit(self.__engine.game_font.render(self.__title, 1, (0, 0, 0)), location)
 
+        # Blits the wrapped text
         for i in range(len(wrapped_text)):
             location = (w * 0.50 - (len(wrapped_text[i]) * text_width) / 2, h * 0.50 + text_height * (i + 1))
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)), location)
 
+        # Blits the input prompt
         self.__engine.screen.blit(self.__engine.game_font.render("Enter your name to start", 1, (0, 0, 0)),
                                   (w * 0.50 - (22 * text_width) / 2, h * 0.90))
 

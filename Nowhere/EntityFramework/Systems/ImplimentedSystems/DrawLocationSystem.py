@@ -30,10 +30,13 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
         return True
 
     def update(self, time):
+        # Get sizes
         w, h = self.__engine.screen.get_size()
+
         # Get the values for the location and its data
         target_location = self.__engine.locations[self.__target_entity.components[PositionNode.__name__].location]
         target_background = target_location.components[BackgroundNode.__name__].background_screen
+
         # Draw the background on the screen
         self.__engine.screen.blit(target_background, [w * 0.20, h * 0.20])
         self.__engine.add_system(DrawTextSystem(self.__engine,

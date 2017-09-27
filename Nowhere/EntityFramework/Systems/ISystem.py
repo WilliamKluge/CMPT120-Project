@@ -13,6 +13,9 @@ class ISystem(ABC):
     @property
     @abstractmethod
     def priority(self):
+        """
+        :return: The priority of this system. Lower = higher priority
+        """
         pass
 
     @abstractmethod
