@@ -13,7 +13,7 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
     def priority(self):
         return 100  # Low priority system
 
-    def __init__(self, engine, text, location, format_text=None):
+    def __init__(self, engine, text, location, format_text=None, no_wait=True):
         """
         Draws text to the screen.
         :param engine: Engine controlling the game.
@@ -21,10 +21,12 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
         :param location: Location (as a tuple in pixels) where the text is to be drawn.
         :param format_text: The text to format the string with. Use this to replace {} with character name in strings.
         This can be a list if multiple data are to be used during formatting.
+        :param no_wait The system will say it is done after one iteration, it will not wait for user input
         """
         self.__engine = engine
         self.__text = text
         self.__location = location
+        self.__no_wait = no_wait
 
         # If format_text was entered (it is not empty), reformat the text to include the new formatting
         if format_text:
@@ -42,7 +44,7 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
             self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
                                       tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
-        return True
+        return self.__no_wait or self.__engine.input_box.value
 
     def end(self):
         return
