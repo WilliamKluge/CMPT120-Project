@@ -23,7 +23,7 @@ class QuitSystem(ISystem):
         """
         self.__engine = engine
         self.__text = text
-        self.background = pygame.Surface(engine.screen.get_size())
+        self.background = pygame.Surface(self.__engine.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
 

@@ -8,10 +8,6 @@ import pygame
 from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
-from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
 
 class Engine(object):
@@ -50,7 +46,7 @@ class Engine(object):
         self.background.fill((250, 250, 250))
 
         # Possible commands given characters location, surrounding items, etc.
-        self.__possible_commands = dict()
+        self.possible_commands = dict()
 
     def add_system(self, process):
         """
@@ -137,60 +133,3 @@ class Engine(object):
         :return: tuple_one and tuple_two added together
         """
         return tuple([sum(i) for i in zip(tuple_one, tuple_two)])
-
-    def update_commands(self):
-        """
-        Checks if the user has input a command and then tells the user what commands are available
-        :return: None
-        """
-        # Checks if the user input is one of the possible commands
-        user_input = self.input_box.value
-
-        if user_input in self.__possible_commands:
-            self.add_system(self.__possible_commands[user_input])
-            self.input_box.value = ''
-
-        # Clear the commands from the last iteration
-        self.__possible_commands.clear()
-
-        # Update where the character can move to
-        character_location = self.character.components[PositionNode.__name__].location
-
-        if self.vertical_add(character_location, (1, 0, 0)) in self.locations:
-            self.__possible_commands["north"] = MoveSystem(self.character, self, 0, (1, 0, 0))
-
-        if self.vertical_add(character_location, (0, 1, 0)) in self.locations:
-            self.__possible_commands["east"] = MoveSystem(self.character, self, 0, (0, 1, 0))
-
-        if self.vertical_add(character_location, (-1, 0, 0)) in self.locations:
-            self.__possible_commands["south"] = MoveSystem(self.character, self, 0, (-1, 0, 0))
-
-        if self.vertical_add(character_location, (0, -1, 0)) in self.locations:
-            self.__possible_commands["west"] = MoveSystem(self.character, self, 0, (0, -1, 0))
-
-        if self.vertical_add(character_location, (0, 0, 1)) in self.locations:
-            self.__possible_commands["up"] = MoveSystem(self.character, self, 0, (0, 0, 1))
-
-        if self.vertical_add(character_location, (0, 0, -1)) in self.locations:
-            self.__possible_commands["down"] = MoveSystem(self.character, self, 0, (0, 0, -1))
-
-        # The default commands that can always be run
-        self.__possible_commands["quit"] = QuitSystem(self, "This game and its contents are all owned by William Kluge."
-                                                            " Contact: klugewilliam@gmail.com")
-
-        self.__possible_commands["help"] = DrawTextSystem(self, "Commands are located on the left of the screen.\n"
-                                                                "Each direction command moves you in that direction."
-                                                                "The quit command exits the game.", (50, 20),
-                                                          no_wait=False)
-
-        # Draw the command list to the screen
-        text = [self.game_font.render("Possible Commands:", 1, (0, 0, 0))]
-
-        for key in self.__possible_commands:
-            text.append(self.game_font.render(key, 1, (0, 0, 0)))
-
-        w, h = self.screen.get_size()
-        start_location = (int(w * 0.02), int(h * 0.25))
-        text_width, text_height = self.game_font.size("P")  # Just getting the height of the font
-        for i in range(len(text)):
-            self.screen.blit(text[i], self.vertical_add(start_location, (0, text_height * i)))
