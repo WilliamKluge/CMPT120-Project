@@ -1,6 +1,7 @@
 # Holds the DrawTextSystem class
 # Author: William Kluge
 # Date: 2017-9-21
+
 import textwrap
 
 from Nowhere.EntityFramework.Systems.ISystem import ISystem

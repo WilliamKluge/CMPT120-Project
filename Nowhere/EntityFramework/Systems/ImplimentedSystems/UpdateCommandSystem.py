@@ -1,6 +1,7 @@
 # Holds the UpdateCommandSystem class
 # Author: William Kluge
 # Date: 2017-9-25
+
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem

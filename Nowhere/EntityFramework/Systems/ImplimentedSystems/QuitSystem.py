@@ -1,6 +1,7 @@
 # Holds the QuitSystem class
 # Author: William Kluge
 # Date: 2017-9-22
+
 import textwrap
 
 import pygame

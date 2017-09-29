@@ -1,6 +1,7 @@
 # Main file for CMPT120-Project
 # Author: William Kluge
 # Date: 2017-9-8
+
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
@@ -12,7 +13,7 @@ from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.TitleScreenSystem import TitleScreenSystem
 
 
-def main():
+def main():  # TODO create and update the map based on user's travels
     # Game engine
     engine = Engine()
 
