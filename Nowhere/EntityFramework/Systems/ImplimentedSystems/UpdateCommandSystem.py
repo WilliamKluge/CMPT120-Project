@@ -1,6 +1,7 @@
 # Holds the UpdateCommandSystem class
 # Author: William Kluge
 # Date: 2017-9-25
+import pygame
 
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
@@ -31,8 +32,14 @@ class UpdateCommandSystem(ISystem):
         # Update user input (also draws possible commands to the screen)
         user_input = self.__engine.input_box.value
 
+        if self.__engine.input_box.value is not '':
+            self.__engine.input_box.color = (0, 0, 0)
+
         if user_input in self.__engine.possible_commands:
             self.__engine.add_system(self.__engine.possible_commands[user_input])
+            self.__engine.input_box.value = ''
+        elif next((x for x in self.__engine.events if x.type == pygame.KEYDOWN and x.key == pygame.K_RETURN), None):
+            self.__engine.input_box.color = (255, 0, 0)
             self.__engine.input_box.value = ''
 
         # Clear the commands from the last iteration

@@ -68,8 +68,10 @@ class TitleScreenSystem(ISystem):
 
     def end(self):
         self.__engine.character.components[NameNode.__name__].name = self.__engine.input_box.value
-        self.__engine.input_box.value = ''  # Clear anything entered in the input box
-        self.__engine.input_box.prompt = 'Enter Command: '
         self.__engine.add_system(DrawLocationSystem(self.__engine.character, self.__engine))
         self.__engine.add_system(UpdateCommandSystem(self.__engine))
+        self.__engine.events.clear()
+        self.__engine.input_box.value = ''  # Clear anything entered in the input box
+        self.__engine.input_box.prompt = 'Enter Command: '
+        self.__engine.input_box.color = (0, 0, 0)  # Turns it to black from red (because name is not a valid command)
         return
