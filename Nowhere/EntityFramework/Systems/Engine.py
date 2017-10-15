@@ -45,9 +45,6 @@ class Engine(object):
         self.background = self.background.convert()
         self.background.fill((250, 250, 250))
 
-        # Possible commands given characters location, surrounding items, etc.
-        self.possible_commands = dict()
-
     def add_system(self, process):
         """
         Adds a process to the queue

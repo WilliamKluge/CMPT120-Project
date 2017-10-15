@@ -36,6 +36,3 @@ class Command:
         :return: None
         """
         self.using = using
-
-    def run(self):
-        pass

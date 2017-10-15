@@ -13,6 +13,13 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem impo
 
 class TitleScreenSystem(ISystem):
     """Draws the title screen until the player presses a key"""
+
+    def set_target(self, target):
+        pass
+
+    def set_using(self, using):
+        pass
+
     # TODO update to use new ISystem update due to command framework implimentation
 
     @property

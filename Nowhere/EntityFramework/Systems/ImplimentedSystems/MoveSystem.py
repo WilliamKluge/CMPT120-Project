@@ -9,6 +9,10 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 class MoveSystem(ISystem):
     """Draws a scene"""
+
+    def set_using(self, using):
+        pass
+
     # TODO update to use new ISystem update due to command framework implimentation
 
     @property
