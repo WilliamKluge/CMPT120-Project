@@ -14,6 +14,8 @@ their environment and wit they need to find their way back to somewhere before i
   <a href="http://www.pygame.org/wiki/GettingStarted#Pygame Installation">their website</a> for details.
 
 ## Project Structure
+* CommandFramework<br>
+  Contains code related to how the user's input is interpreted as commands
 * <b>EntityFramework</b><br>
   Contains code related to constructing the 
   <a href="http://www.richardlord.net/blog/ecs/what-is-an-entity-framework.html">entity framework</a>

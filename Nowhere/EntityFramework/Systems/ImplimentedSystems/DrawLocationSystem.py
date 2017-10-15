@@ -12,6 +12,7 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import Dr
 
 class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the character
     """Draws a scene"""             # (only need to render when location changes)
+    # TODO update to use new ISystem update due to command framework implimentation
 
     @property
     def priority(self):

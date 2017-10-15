@@ -13,6 +13,7 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSy
 
 class UpdateCommandSystem(ISystem):
     """Updates the commands the user has available and draws the users score"""
+    # TODO update to use new ISystem update due to command framework implimentation
 
     @property
     def priority(self):

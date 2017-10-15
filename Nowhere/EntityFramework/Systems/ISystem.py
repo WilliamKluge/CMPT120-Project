@@ -19,6 +19,22 @@ class ISystem(ABC):
         pass
 
     @abstractmethod
+    def set_target(self, target):
+        """
+        Sets the entity for this system to target
+        :param target: Entity to target
+        :return: None
+        """
+
+    @abstractmethod
+    def set_using(self, using):
+        """
+        Sets the entity for this system to use
+        :param using: Entity to use
+        :return: None
+        """
+
+    @abstractmethod
     def start(self):
         """
         Run the first time the system starts
