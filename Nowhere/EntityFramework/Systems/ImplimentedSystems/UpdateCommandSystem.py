@@ -37,32 +37,38 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
     def update(self, time):  # TODO only update the command dictionary when the user does something that would change it
         # Update user input (also draws possible commands to the screen)
         user_input = self.engine.input_box.value
-        # Get the size of the screen
-        w, h = self.engine.screen.get_size()
-        # Sets the location to start drawing the text
-        start_location = (int(w * 0.02), int(h * 0.25))
-        # Getting the height and width of the font
-        text_width, text_height = self.engine.game_font.size("P")
-
-        if self.engine.input_box.value is not '':
-            # If the input box is not empty, set the color to black
-            self.engine.input_box.color = (0, 0, 0)
-
-        if user_input in self.possible_commands \
-                and next((x for x in self.engine.events if x.type == pygame.KEYDOWN and x.key == pygame.K_RETURN),
-                         None):
-            # Checks if the user press enter and has input that matches a command in possible commands
-            self.engine.add_system(self.possible_commands[user_input].create_system(self.engine))
-            self.engine.input_box.value = ''
 
         # Clear the commands from the last iteration
         self.possible_commands.clear()
 
         for command in self.commands:
             if command.is_possible(self.engine):
-                self.possible_commands[command.key] = command
+                if command.is_multipart() and user_input[:len(command.key)] == command.key:
+                    # The command is multipart and the first part of the user's input is the command's key
+                    for i in command.generate_multipart_commands(self.engine):
+                        self.possible_commands[i] = command
+                else:
+                    self.possible_commands[command.key] = command
 
-        # Draw the command list to the screen
+        if user_input in self.possible_commands \
+                and next((x for x in self.engine.events if x.type == pygame.KEYDOWN and x.key == pygame.K_RETURN),
+                         None):
+            # Checks if the user press enter and has input that matches a command in possible commands
+            command = self.possible_commands[user_input]  # Command the user triggered
+            self.engine.add_system(command.create_system(self.engine, user_input))
+            self.engine.input_box.value = ''
+
+        self.__draw_commands(user_input)
+
+        return False
+
+    def __draw_commands(self, user_input):
+        # Get the size of the screen
+        w, h = self.engine.screen.get_size()
+        # Sets the location to start drawing the text
+        start_location = (int(w * 0.02), int(h * 0.25))
+        # Getting the height and width of the font
+        text_width, text_height = self.engine.game_font.size("P")
 
         text = [self.engine.game_font.render("Possible Commands:", 1, (0, 0, 0))]  # The array of text to render
 
@@ -75,6 +81,8 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         if len(text) == 1:
             # If the only text is "Possible Commands:", set the color to red
             self.engine.input_box.color = (255, 0, 0)
+        else:
+            self.engine.input_box.color = (0, 0, 0)
 
         for i in range(len(text)):
             # Blits the text to the screen
@@ -85,5 +93,3 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
                                               "Score: "
                                               + str(self.engine.character.components[ScoreNode.__name__].score),
                                               (w * 0.90, 0)))
-
-        return False

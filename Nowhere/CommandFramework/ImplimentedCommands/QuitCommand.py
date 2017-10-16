@@ -17,6 +17,6 @@ class QuitCommand(ICommand):
     def is_possible(self, engine):
         return True
 
-    def create_system(self, engine, using=None, target=None):
+    def create_system(self, engine, user_input):
         return QuitSystem(engine, "This game and its contents are all owned by William Kluge. Contact: "
                                   "klugewilliam@gmail.com")

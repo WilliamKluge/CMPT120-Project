@@ -20,5 +20,5 @@ class UpCommand(ICommand):
         character_location = engine.character.components[PositionNode.__name__].location
         return engine.vertical_add(character_location, (0, 0, 1)) in engine.locations
 
-    def create_system(self, engine, using=None, target=None):
-        return MoveSystem(engine, using, 0, (0, 0, 1))
+    def create_system(self, engine, user_input):
+        return MoveSystem(engine, engine.character, 0, (0, 0, 1))

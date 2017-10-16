@@ -34,11 +34,22 @@ class ICommand:
         """
 
     @abstractmethod
-    def create_system(self, engine, using=None, target=None):
+    def create_system(self, engine, user_input):
         """
         Returns the created system to add to the system queue of the engine
         :param engine: Game engine
-        :param using: Entity the system is using
-        :param target: Entity the system is targeting
+        :param user_input: Input the user entered
         :return: Created system
         """
+
+    def is_multipart(self):
+        """
+        :return: If the command requires the user to enter multiple words (i.e. a command using/targeting something).
+        """
+        return False
+
+    def generate_multipart_commands(self, engine):
+        """
+        :return: Versions of this command that can be run in the character's current context
+        """
+        return []
