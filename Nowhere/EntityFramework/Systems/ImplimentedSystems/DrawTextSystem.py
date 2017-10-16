@@ -10,12 +10,6 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 class DrawTextSystem(ISystem):  # TODO create a way to center text on the location
     """Draws text"""
 
-    def set_target(self, target):
-        pass
-
-    def set_using(self, using):
-        pass
-
     # TODO update to use new ISystem update due to command framework implimentation
 
     @property
@@ -32,7 +26,7 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
         This can be a list if multiple data are to be used during formatting.
         :param no_wait The system will say it is done after one iteration, it will not wait for user input
         """
-        self.__engine = engine
+        super().__init__(engine)
         self.__text = text
         self.__location = location
         self.__no_wait = no_wait
@@ -48,12 +42,12 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
     def update(self, time):
         wrapped_text = textwrap.wrap(self.__text, 120)
 
-        text_width, text_height = self.__engine.game_font.size("P")  # Get the height of the font
+        text_width, text_height = self.engine.game_font.size("P")  # Get the height of the font
         for i in range(len(wrapped_text)):
-            self.__engine.screen.blit(self.__engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
-                                      tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
+            self.engine.screen.blit(self.engine.game_font.render(wrapped_text[i], 1, (0, 0, 0)),
+                                    tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
-        return self.__no_wait or self.__engine.input_box.value
+        return self.__no_wait or self.engine.input_box.value
 
     def end(self):
         return

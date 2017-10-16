@@ -10,6 +10,12 @@ class ISystem(ABC):
     Base class for a system
     """
 
+    @abstractmethod
+    def __init__(self, engine):
+        self.engine = engine
+        self.using = None
+        self.using = None
+
     @property
     @abstractmethod
     def priority(self):
@@ -18,21 +24,21 @@ class ISystem(ABC):
         """
         pass
 
-    @abstractmethod
     def set_target(self, target):
         """
         Sets the entity for this system to target
         :param target: Entity to target
         :return: None
         """
+        self.using = target
 
-    @abstractmethod
     def set_using(self, using):
         """
         Sets the entity for this system to use
         :param using: Entity to use
         :return: None
         """
+        self.using = using
 
     @abstractmethod
     def start(self):
