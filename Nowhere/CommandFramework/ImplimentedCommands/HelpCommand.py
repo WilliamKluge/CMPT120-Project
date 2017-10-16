@@ -8,6 +8,8 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import Dr
 class HelpCommand(ICommand):
     def __init__(self):
         self.__variations = dict()
+        from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem import UpdateCommandSystem
+        self.__command_system_name = UpdateCommandSystem.__name__
 
     @property
     def help_string(self):
@@ -30,9 +32,9 @@ class HelpCommand(ICommand):
         :return: Keys for the variations of this command
         """
         # Local import to avoid circular inclusion
-        from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem import UpdateCommandSystem
+
         # It is guaranteed for this to not return none because this is called from an UpdateCommandSystem object
-        command_list = next((x for x in engine.system_queue if x.__class__.__name__ == UpdateCommandSystem.__name__),
+        command_list = next((x for x in engine.system_queue if x.__class__.__name__ == self.__command_system_name),
                             None).commands
         command_keys = []
 

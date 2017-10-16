@@ -74,7 +74,7 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
 
         for key in self.possible_commands:
             # Cycles through all possible commands
-            if user_input in key:
+            if user_input == key[0:len(user_input)]:
                 # Renders the text and adds it to the array if the user is already typing a command
                 text.append(self.engine.game_font.render(key, 1, (0, 0, 0)))
 
