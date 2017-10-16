@@ -14,6 +14,8 @@ their environment and wit they need to find their way back to somewhere before i
   <a href="http://www.pygame.org/wiki/GettingStarted#Pygame Installation">their website</a> for details.
 
 ## Project Structure
+* Assets<br>
+  Textuers for the game. all background images are 936x527
 * CommandFramework<br>
   Contains code related to how the user's input is interpreted as commands
 * <b>EntityFramework</b><br>

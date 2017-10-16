@@ -32,7 +32,7 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
         target_background = target_location.components[BackgroundNode.__name__].background_screen
 
         # Draw the background on the screen
-        self.engine.screen.blit(target_background, [w * 0.20, h * 0.20])
+        self.engine.screen.blit(target_background, [w * 0.185, h * 0.185])
         self.engine.add_system(DrawTextSystem(self.engine,
                                               target_location.components[DescriptionNode.__name__].description,
                                               (w * 0.05, w * 0.05),

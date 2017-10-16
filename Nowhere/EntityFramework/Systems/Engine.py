@@ -27,8 +27,8 @@ class Engine(object):
         pygame.init()
         pygame.display.set_caption('Nowhere')
         info_object = pygame.display.Info()
-        self.screen = pygame.display.set_mode((int(info_object.current_w / 1280) * 1200,
-                                               int(info_object.current_h / 800) * 600))
+        self.screen = pygame.display.set_mode((int(info_object.current_w * 0.75),
+                                               int(info_object.current_h * 0.75)))
 
         # Initialize font
         self.game_font = pygame.font.SysFont("monospace", 15)
