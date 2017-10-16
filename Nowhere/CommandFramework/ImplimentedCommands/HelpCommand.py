@@ -11,7 +11,7 @@ class HelpCommand(ICommand):
 
     @property
     def help_string(self):
-        return "Prints help to the user."
+        return "Prints help to the user...you just ran this command."
 
     @property
     def key(self):
@@ -37,9 +37,10 @@ class HelpCommand(ICommand):
         command_keys = []
 
         for command in command_list:
-            key = "help " + command.key
-            self.__variations[key] = command.help_string
-            command_keys.append("help " + command.key)
+            if command.is_possible(engine):
+                key = "help " + command.key
+                self.__variations[key] = command.help_string
+                command_keys.append("help " + command.key)
 
         return command_keys
 
