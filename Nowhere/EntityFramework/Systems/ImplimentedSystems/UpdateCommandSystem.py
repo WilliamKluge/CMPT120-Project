@@ -7,13 +7,12 @@ from Nowhere.CommandFramework.ImplimentedCommands.DownCommand import DownCommand
 from Nowhere.CommandFramework.ImplimentedCommands.EastCommand import EastCommand
 from Nowhere.CommandFramework.ImplimentedCommands.HelpCommand import HelpCommand
 from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthCommand
+from Nowhere.CommandFramework.ImplimentedCommands.PointCommand import PointCommand
 from Nowhere.CommandFramework.ImplimentedCommands.QuitCommand import QuitCommand
 from Nowhere.CommandFramework.ImplimentedCommands.SouthCommand import SouthCommand
 from Nowhere.CommandFramework.ImplimentedCommands.UpCommand import UpCommand
 from Nowhere.CommandFramework.ImplimentedCommands.WestCommand import WestCommand
-from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 
 
 class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts of the system like screen or character
@@ -26,7 +25,7 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         super().__init__(engine)
         # Commands that can be run (any command that is any part of the game)
         self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
-                         QuitCommand(), HelpCommand()]
+                         PointCommand(), QuitCommand(), HelpCommand()]
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 
@@ -87,9 +86,3 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         for i in range(len(text)):
             # Blits the text to the screen
             self.engine.screen.blit(text[i], self.engine.vertical_add(start_location, (0, text_height * i)))
-
-        # Draws the user's score
-        self.engine.add_system(DrawTextSystem(self.engine,
-                                              "Score: "
-                                              + str(self.engine.character.components[ScoreNode.__name__].score),
-                                              (w * 0.90, 0)))
