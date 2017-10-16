@@ -33,13 +33,13 @@ def main():  # TODO create and update the map based on user's travels
     forest_can = Entity()
     forest_can.add_component(DescriptionNode("{0}, you are getting closer to the structure. You see a tin can on the "
                                              "ground next to you."))
-    forest_can.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
+    forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
 
     # Forest large tree location
     forest_large_tree = Entity()
-    forest_large_tree.add_component(DescriptionNode("The structure is now clearly visible as some sort of watchtower. "
-                                                    "You also notice a very large tree that you could not see before."))
-    forest_large_tree.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
+    forest_large_tree.add_component(DescriptionNode("A large tree obscures any sight you had above the trees in the "
+                                                    "forest."))
+    forest_large_tree.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
 
     # Watchtower stairs location
     watchtower_stairs = Entity()
@@ -70,8 +70,8 @@ def main():  # TODO create and update the map based on user's travels
 
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))
-    engine.add_location(forest_can, (1, 0, 0))
-    engine.add_location(forest_large_tree, (0, 1, 0))
+    engine.add_location(forest_can, (0, 1, 0))
+    engine.add_location(forest_large_tree, (1, 0, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
     engine.add_location(watchtower, (0, 1, 2))
     engine.add_location(dense_forest, (0, -1, 0))
