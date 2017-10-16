@@ -14,7 +14,6 @@ from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem impo
 class TitleScreenSystem(ISystem):
     """Draws the title screen until the player presses a key"""
 
-
     # TODO update to use new ISystem update due to command framework implimentation
 
     @property
@@ -34,10 +33,6 @@ class TitleScreenSystem(ISystem):
         self.background = pygame.Surface(engine.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
-
-    @staticmethod
-    def start(self):
-        return True
 
     def update(self, time):  # TODO use DrawTextSystem for this
         # Length of one line (in characters)
@@ -71,10 +66,11 @@ class TitleScreenSystem(ISystem):
 
     def end(self):
         self.engine.character.components[NameNode.__name__].name = self.engine.input_box.value
-        self.engine.add_system(DrawLocationSystem(self.engine, self.engine.character))
+        draw_location_system = DrawLocationSystem(self.engine)
+        draw_location_system.set_using(self.engine.character)
+        self.engine.add_system(draw_location_system)
         self.engine.add_system(UpdateCommandSystem(self.engine))
         self.engine.events.clear()
         self.engine.input_box.value = ''  # Clear anything entered in the input box
         self.engine.input_box.prompt = 'Enter Command: '
         self.engine.input_box.color = (0, 0, 0)  # Turns it to black from red (because name is not a valid command)
-        return

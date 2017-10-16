@@ -26,10 +26,6 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
     def priority(self):
         return 100
 
-    @staticmethod
-    def start(self):
-        return True
-
     def update(self, time):  # TODO only update the command dictionary when the user does something that would change it
         # Update user input (also draws possible commands to the screen)
         user_input = self.engine.input_box.value
@@ -106,11 +102,8 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
 
         # Draws the user's score
         self.engine.add_system(DrawTextSystem(self.engine,
-                                                "Score: "
+                                              "Score: "
                                               + str(self.engine.character.components[ScoreNode.__name__].score),
                                               (w * 0.90, 0)))
 
         return False
-
-    def end(self):
-        return

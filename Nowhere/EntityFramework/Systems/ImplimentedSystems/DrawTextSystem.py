@@ -35,10 +35,6 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
         if format_text:
             self.__text = self.__text.format(format_text)
 
-    @staticmethod
-    def start(self):
-        return True
-
     def update(self, time):
         wrapped_text = textwrap.wrap(self.__text, 120)
 
@@ -48,6 +44,3 @@ class DrawTextSystem(ISystem):  # TODO create a way to center text on the locati
                                     tuple([sum(j) for j in zip(self.__location, (0, text_height * i))]))
 
         return self.__no_wait or self.engine.input_box.value
-
-    def end(self):
-        return

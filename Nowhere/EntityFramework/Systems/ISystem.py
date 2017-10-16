@@ -14,7 +14,7 @@ class ISystem(ABC):
     def __init__(self, engine):
         self.engine = engine
         self.using = None
-        self.using = None
+        self.target = None
 
     @property
     @abstractmethod
@@ -40,12 +40,12 @@ class ISystem(ABC):
         """
         self.using = using
 
-    @abstractmethod
     def start(self):
         """
         Run the first time the system starts
         :return: A boolean indicating if the start was successful
         """
+        return True
 
     @abstractmethod
     def update(self, time):
@@ -55,9 +55,9 @@ class ISystem(ABC):
         :return: If the system is done
         """
 
-    @abstractmethod
     def end(self):
         """
         Clean up the system so that it can finish cleanly or start the next system
         :return: None
         """
+        return

@@ -29,10 +29,6 @@ class MoveSystem(ISystem):
         self.__priority = priority
         self.__amount = amount
 
-    @staticmethod
-    def start(self):
-        return True
-
     def update(self, time):  # TODO make work for any given entity
         character_position = self.engine.character.components[PositionNode.__name__]
         new_location = self.engine.vertical_add(character_position.location, self.__amount)
@@ -45,6 +41,3 @@ class MoveSystem(ISystem):
             character_locations_visited.visit_location(new_location)
 
         return True
-
-    def end(self):
-        return

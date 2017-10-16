@@ -30,9 +30,6 @@ class QuitSystem(ISystem):
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
 
-    def start(self):
-        return True
-
     def update(self, time):  # TODO make this use DrawTextSystem
         # Remove all systems from the engine queue
         self.engine.system_queue.clear()
@@ -61,4 +58,3 @@ class QuitSystem(ISystem):
 
     def end(self):
         self.engine.continue_updating = False
-        return

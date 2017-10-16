@@ -19,14 +19,9 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
     def priority(self):
         return 100
 
-    def __init__(self, engine, using):
+    def __init__(self, engine):
         super().__init__(engine)
-        self.using = using
         self.__text_process = None  # TODO have this start when the location changes
-
-    @staticmethod
-    def start(self):
-        return True
 
     def update(self, time):
         # Get sizes
@@ -43,6 +38,3 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
                                               (w * 0.05, w * 0.05),
                                               self.engine.character.components[NameNode.__name__].name))
         return False
-
-    def end(self):
-        return
