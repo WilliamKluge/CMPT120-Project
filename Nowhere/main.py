@@ -6,6 +6,7 @@ from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedNode
+from Nowhere.EntityFramework.Nodes.MapMarkerNode import MapMarkerNode
 from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
@@ -28,6 +29,7 @@ def main():  # TODO create and update the map based on user's travels
     start.add_component(DescriptionNode("{0}, you are in a foggy forest. The landscape around you is hard to see, but "
                                         "you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
+    start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
 
     # Forest can location
     forest_can = Entity()
@@ -61,6 +63,11 @@ def main():  # TODO create and update the map based on user's travels
                                                "is dense. {0}, you can't travel any further in this direction."))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
 
+    # Map
+    game_map = Entity()
+    game_map.add_component(BackgroundNode("Assets/MapBackground.png", engine))
+    game_map.add_component(MapMarkerNode("Assets/UnknownLocationMarker.png", engine))
+
     # Player
     player = Entity()
     player.add_component(LocationsVisitedNode())
@@ -76,6 +83,7 @@ def main():  # TODO create and update the map based on user's travels
     engine.add_location(watchtower, (0, 1, 2))
     engine.add_location(dense_forest, (0, -1, 0))
     engine.add_character(player)
+    engine.add_entity(game_map)
 
     # Starts the engine updating process
     engine.update()

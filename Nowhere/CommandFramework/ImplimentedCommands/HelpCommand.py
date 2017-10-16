@@ -1,4 +1,4 @@
-# Holds the NorthCommand class
+# Holds the HelpCommand class
 # Author: William Kluge
 # Date: 2017-10-15
 from Nowhere.CommandFramework.ICommand import ICommand

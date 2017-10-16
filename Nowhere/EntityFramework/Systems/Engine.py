@@ -18,6 +18,7 @@ class Engine(object):
     continue_updating = True  # If the game should continue to be updated or if it should end
     locations = dict()  # Stores locations in the game
     character = None  # Character of the game
+    entities = []  # Entities of the game engine TODO move locations and character here
     game_font = None  # Font to use for any text put on the screen
     system_queue = []  # The processes to be run the update loop
     __handled_systems = []  # Systems controlled by other systems and can be run without checking their end state
@@ -112,11 +113,19 @@ class Engine(object):
         """
         self.locations[coordinate] = location
 
+    def add_entity(self, entity):
+        """
+        Adds an entity to the game engine
+        :param entity: Entity to add to the game
+        :return: None
+        """
+        self.entities.append(entity)
+
     def add_character(self, entity):
         """
         Adds the controllable character to the engine
         :param entity:
-        :return:
+        :return: None
         """
         self.character = entity
 
