@@ -45,14 +45,14 @@ class Engine(object):
         self.background = self.background.convert()
         self.background.fill((250, 250, 250))
 
-    def add_system(self, process):
+    def add_system(self, system):
         """
         Adds a process to the queue
-        :param process: Process to add
+        :param system: Process to add
         :return: None
         """
-        if process.start:
-            self.system_queue.append(process)
+        if system.start:
+            self.system_queue.append(system)
             return True
         return False
 

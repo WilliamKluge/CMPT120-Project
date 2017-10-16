@@ -3,12 +3,17 @@
 # Date: 2017-9-25
 import pygame
 
-from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
+from Nowhere.CommandFramework.ImplimentedCommands.DownCommand import DownCommand
+from Nowhere.CommandFramework.ImplimentedCommands.EastCommand import EastCommand
+from Nowhere.CommandFramework.ImplimentedCommands.HelpCommand import HelpCommand
+from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthCommand
+from Nowhere.CommandFramework.ImplimentedCommands.QuitCommand import QuitCommand
+from Nowhere.CommandFramework.ImplimentedCommands.SouthCommand import SouthCommand
+from Nowhere.CommandFramework.ImplimentedCommands.UpCommand import UpCommand
+from Nowhere.CommandFramework.ImplimentedCommands.WestCommand import WestCommand
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
 
 
 class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts of the system like screen or character
@@ -19,7 +24,10 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         :param engine: Engine controlling the game
         """
         super().__init__(engine)
-        # Possible commands given characters location, surrounding items, etc.
+        # Commands that can be run (any command that is any part of the game)
+        self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
+                         QuitCommand(), HelpCommand()]
+        # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 
     @property
@@ -44,43 +52,15 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
                 and next((x for x in self.engine.events if x.type == pygame.KEYDOWN and x.key == pygame.K_RETURN),
                          None):
             # Checks if the user press enter and has input that matches a command in possible commands
-            self.engine.add_system(self.possible_commands[user_input])
+            self.engine.add_system(self.possible_commands[user_input].create_system(self.engine))
             self.engine.input_box.value = ''
 
         # Clear the commands from the last iteration
         self.possible_commands.clear()
 
-        # Update where the character can move to
-        character_location = self.engine.character.components[PositionNode.__name__].location
-
-        if self.engine.vertical_add(character_location, (1, 0, 0)) in self.engine.locations:
-            self.possible_commands["north"] = MoveSystem(self.engine, self.engine.character, 0, (1, 0, 0))
-
-        if self.engine.vertical_add(character_location, (0, 1, 0)) in self.engine.locations:
-            self.possible_commands["east"] = MoveSystem(self.engine, self.engine.character, 0, (0, 1, 0))
-
-        if self.engine.vertical_add(character_location, (-1, 0, 0)) in self.engine.locations:
-            self.possible_commands["south"] = MoveSystem(self.engine, self.engine.character, 0, (-1, 0, 0))
-
-        if self.engine.vertical_add(character_location, (0, -1, 0)) in self.engine.locations:
-            self.possible_commands["west"] = MoveSystem(self.engine, self.engine.character, 0, (0, -1, 0))
-
-        if self.engine.vertical_add(character_location, (0, 0, 1)) in self.engine.locations:
-            self.possible_commands["up"] = MoveSystem(self.engine, self.engine.character, 0, (0, 0, 1))
-
-        if self.engine.vertical_add(character_location, (0, 0, -1)) in self.engine.locations:
-            self.possible_commands["down"] = MoveSystem(self.engine, self.engine.character, 0, (0, 0, -1))
-
-        # The default commands that can always be run
-        self.possible_commands["quit"] = QuitSystem(self.engine,
-                                                    "This game and its contents are all owned by "
-                                                    "William Kluge. Contact: klugewilliam@gmail.com")
-
-        self.possible_commands["help"] = DrawTextSystem(self.engine,
-                                                        "Commands are located on the left of the screen.\n"
-                                                        "Each direction command moves you in that direction."
-                                                        "The quit command exits the game.", (50, 20),
-                                                        no_wait=False)
+        for command in self.commands:
+            if command.is_possible(self.engine):
+                self.possible_commands[command.key] = command
 
         # Draw the command list to the screen
 
