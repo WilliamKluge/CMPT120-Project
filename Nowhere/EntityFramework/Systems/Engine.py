@@ -130,7 +130,7 @@ class Engine(object):
         self.character = entity
 
     @staticmethod
-    def vertical_add(tuple_one, tuple_two):
+    def vertical_add(*iterables):
         """
         Adds two tuple vertically.
         If tuples (1, 2, 3) and (1, 2, 3) are given tuple (2, 4, 6) will be returned
@@ -138,4 +138,4 @@ class Engine(object):
         :param tuple_two: Second tuple to add
         :return: tuple_one and tuple_two added together
         """
-        return tuple([sum(i) for i in zip(tuple_one, tuple_two)])
+        return tuple([sum(i) for i in zip(*iterables)])
