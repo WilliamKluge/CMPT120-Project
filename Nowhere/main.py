@@ -66,7 +66,7 @@ def main():  # TODO create and update the map based on user's travels
     # Map
     game_map = Entity()
     game_map.add_component(BackgroundNode("Assets/MapBackground.png", engine))
-    game_map.add_component(MapMarkerNode("Assets/UnknownLocationMarker.png", engine))
+    game_map.add_component(MapMarkerNode("Assets/ErrorLocationMarker.png", engine))
 
     # Player
     player = Entity()

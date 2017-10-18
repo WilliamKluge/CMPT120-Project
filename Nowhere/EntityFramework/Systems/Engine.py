@@ -134,8 +134,7 @@ class Engine(object):
         """
         Adds two tuple vertically.
         If tuples (1, 2, 3) and (1, 2, 3) are given tuple (2, 4, 6) will be returned
-        :param tuple_one: First tuple to add
-        :param tuple_two: Second tuple to add
+        :param iterables: Iterable objects to add
         :return: tuple_one and tuple_two added together
         """
         return tuple([sum(i) for i in zip(*iterables)])
