@@ -35,8 +35,8 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         return 100
 
     def update(self, time):  # TODO only update the command dictionary when the user does something that would change it
-        # Update user input (also draws possible commands to the screen)
-        user_input = self.engine.input_box.value
+        # Gets user input as lower case characters
+        user_input = self.engine.input_box.value.lower()
 
         # Clear the commands from the last iteration
         self.possible_commands.clear()
