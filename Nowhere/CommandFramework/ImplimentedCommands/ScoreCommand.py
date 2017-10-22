@@ -6,14 +6,14 @@ from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
 
 
-class PointCommand(ICommand):
+class ScoreCommand(ICommand):
     @property
     def help_string(self):
         return "Displays the user's score until they press a key."
 
     @property
     def key(self):
-        return "points"
+        return "score"
 
     def is_possible(self, engine):
         return True
