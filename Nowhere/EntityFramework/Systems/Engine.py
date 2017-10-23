@@ -132,7 +132,7 @@ class Engine(object):
     @staticmethod
     def vertical_add(*iterables):
         """
-        Adds two tuple vertically.
+        Adds iterables vertically.
         If tuples (1, 2, 3) and (1, 2, 3) are given tuple (2, 4, 6) will be returned
         :param iterables: Iterable objects to add
         :return: tuple_one and tuple_two added together

@@ -14,7 +14,7 @@ from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplimentedSystems.TitleScreenSystem import TitleScreenSystem
 
 
-def main():  # TODO create and update the map based on user's travels
+def main():
     # Game engine
     engine = Engine()
 
@@ -31,17 +31,16 @@ def main():  # TODO create and update the map based on user's travels
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
 
-    # Forest can location
-    forest_can = Entity()
-    forest_can.add_component(DescriptionNode("{0}, you are getting closer to the structure. You see a tin can on the "
-                                             "ground next to you."))
-    forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
-
     # Forest large tree location
     forest_large_tree = Entity()
     forest_large_tree.add_component(DescriptionNode("A large tree obscures any sight you had above the trees in the "
                                                     "forest."))
     forest_large_tree.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
+
+    # Forest can location
+    forest_can = Entity()
+    forest_can.add_component(DescriptionNode("{0}, you proceed in the forest to find an oil drum with a burning fire."))
+    forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
 
     # Watchtower stairs location
     watchtower_stairs = Entity()
@@ -51,11 +50,11 @@ def main():  # TODO create and update the map based on user's travels
     watchtower_stairs.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
 
     # Watchtower location
-    watchtower = Entity()
-    watchtower.add_component(DescriptionNode("Standing on top of the watchtower you can see out for miles. As far as "
-                                             "you can tell, {0}, there is nothing but dense forest to your north, west,"
-                                             " and south, but there is an open field to you east."))
-    watchtower.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
+    watchtower_top = Entity()
+    watchtower_top.add_component(DescriptionNode("Standing on top of the watchtower you can see out for miles. As far"
+                                                 " as you can tell, {0}, there is nothing but dense forest to your"
+                                                 " north, west, and south, but there is an open field to you east."))
+    watchtower_top.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
 
     # Dense forest
     dense_forest = Entity()
@@ -80,7 +79,7 @@ def main():  # TODO create and update the map based on user's travels
     engine.add_location(forest_can, (0, 1, 0))
     engine.add_location(forest_large_tree, (1, 0, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
-    engine.add_location(watchtower, (0, 1, 2))
+    engine.add_location(watchtower_top, (0, 1, 2))
     engine.add_location(dense_forest, (0, -1, 0))
     engine.add_character(player)
     engine.add_entity(game_map)

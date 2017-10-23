@@ -54,7 +54,12 @@ class QuitSystem(ISystem):
         self.engine.screen.blit(self.engine.game_font.render("Press any key to quit", 1, (0, 0, 0)),
                                 (w * 0.50 - (21 * text_width) / 2, h * 0.90))
 
-        return self.engine.input_box.value  # Keep updating while the value in the box is empty
+        for x in self.engine.events:
+            if x.type == pygame.KEYDOWN:
+                # Cycles through all events and checks if any are of type KEYDOWN
+                return True
+
+        return False  # Occurs if no events were of type KEYDOWN
 
     def end(self):
         self.engine.continue_updating = False
