@@ -5,7 +5,7 @@ from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedN
 
 
 class PositionNode(object):
-    """Holds the data for describing an entity"""
+    """Holds the data for an entities coordinates"""
 
     def __init__(self, location, target_entity=None):
         """

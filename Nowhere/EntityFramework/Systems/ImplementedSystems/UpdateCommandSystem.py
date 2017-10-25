@@ -8,8 +8,8 @@ from Nowhere.CommandFramework.ImplimentedCommands.EastCommand import EastCommand
 from Nowhere.CommandFramework.ImplimentedCommands.HelpCommand import HelpCommand
 from Nowhere.CommandFramework.ImplimentedCommands.MapCommand import MapCommand
 from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthCommand
+from Nowhere.CommandFramework.ImplimentedCommands.PointsCommand import PointsCommand
 from Nowhere.CommandFramework.ImplimentedCommands.QuitCommand import QuitCommand
-from Nowhere.CommandFramework.ImplimentedCommands.ScoreCommand import ScoreCommand
 from Nowhere.CommandFramework.ImplimentedCommands.SouthCommand import SouthCommand
 from Nowhere.CommandFramework.ImplimentedCommands.UpCommand import UpCommand
 from Nowhere.CommandFramework.ImplimentedCommands.WestCommand import WestCommand
@@ -17,7 +17,7 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
 class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts of the system like screen or character
-    """Updates the commands the user has available and draws the users score"""
+    """Updates the commands the user has available and checks if they are being activated"""
 
     def __init__(self, engine):
         """
@@ -26,7 +26,7 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         super().__init__(engine)
         # Commands that can be run (any command that is any part of the game)
         self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
-                         MapCommand(), ScoreCommand(), QuitCommand(), HelpCommand()]
+                         MapCommand(), PointsCommand(), QuitCommand(), HelpCommand()]
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 

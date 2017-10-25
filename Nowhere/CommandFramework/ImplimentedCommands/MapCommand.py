@@ -2,13 +2,13 @@
 # Author: William Kluge
 # Date: 2017-10-16
 from Nowhere.CommandFramework.ICommand import ICommand
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawMapSystem import DrawMapSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawMapSystem import DrawMapSystem
 
 
 class MapCommand(ICommand):
     def __init__(self):
         self.__variations = dict()
-        from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem import UpdateCommandSystem
+        from Nowhere.EntityFramework.Systems.ImplementedSystems.UpdateCommandSystem import UpdateCommandSystem
         self.__command_system_name = UpdateCommandSystem.__name__
 
     @property

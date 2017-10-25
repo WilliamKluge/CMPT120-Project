@@ -2,7 +2,7 @@
 # Author: William Kluge
 # Date: 2017-10-15
 from Nowhere.CommandFramework.ICommand import ICommand
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.QuitSystem import QuitSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.QuitSystem import QuitSystem
 
 
 class QuitCommand(ICommand):

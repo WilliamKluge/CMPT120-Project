@@ -3,7 +3,7 @@
 # Date: 2017-10-15
 from Nowhere.CommandFramework.ICommand import ICommand
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.MoveSystem import MoveSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.MoveSystem import MoveSystem
 
 
 class NorthCommand(ICommand):

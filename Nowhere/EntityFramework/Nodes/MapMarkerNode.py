@@ -6,7 +6,7 @@ import pygame
 
 
 class MapMarkerNode(object):
-    """Holds the data for describing an entity"""
+    """Holds the picture for a location's map marker"""
 
     def __init__(self, path, engine):
         marker_sprite = pygame.image.load(path).convert()

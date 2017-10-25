@@ -3,17 +3,17 @@
 # Date: 2017-10-15
 from Nowhere.CommandFramework.ICommand import ICommand
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawTextSystem import DrawTextSystem
 
 
-class ScoreCommand(ICommand):
+class PointsCommand(ICommand):
     @property
     def help_string(self):
         return "Displays the user's score until they press a key."
 
     @property
     def key(self):
-        return "score"
+        return "points"
 
     def is_possible(self, engine):
         return True

@@ -7,7 +7,7 @@ from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
 from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawTextSystem import DrawTextSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawTextSystem import DrawTextSystem
 
 
 class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the character

@@ -11,7 +11,7 @@ from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Nodes.ScoreNode import ScoreNode
 from Nowhere.EntityFramework.Systems.Engine import Engine
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.TitleScreenSystem import TitleScreenSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.TitleScreenSystem import TitleScreenSystem
 
 
 def main():

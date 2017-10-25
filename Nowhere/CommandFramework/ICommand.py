@@ -6,7 +6,9 @@ from abc import abstractmethod
 
 class ICommand:
     """
-    Defines what a command will do, what the user needs to enter to activate it, and the help string to describe it
+    Defines what a commands need to be able to do.
+    This includes knowing what the user needs to enter to activate it (key), the help string to describe it, if it is
+    split into multiple parts (such as "help quit"), and creating the system if the command is run.
     """
 
     @property

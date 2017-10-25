@@ -8,7 +8,7 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
 class DrawTextSystem(ISystem):  # TODO create a way to center text on the location
-    """Draws text"""
+    """Draws text to the screen"""
 
     # TODO update to use new ISystem update due to command framework implimentation
 
