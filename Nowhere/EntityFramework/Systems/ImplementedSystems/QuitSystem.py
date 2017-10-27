@@ -10,7 +10,7 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 
 class QuitSystem(ISystem):
-    """Draws text"""
+    """Print copyright and contact info then quits the game one the user pressed a key"""
 
     # TODO update to use new ISystem update due to command framework implimentation
 

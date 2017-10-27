@@ -7,8 +7,8 @@ import pygame
 
 from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.DrawLocationSystem import DrawLocationSystem
-from Nowhere.EntityFramework.Systems.ImplimentedSystems.UpdateCommandSystem import UpdateCommandSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawLocationSystem import DrawLocationSystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.UpdateCommandSystem import UpdateCommandSystem
 
 
 class TitleScreenSystem(ISystem):
