@@ -52,6 +52,12 @@ def main():
                                                     "treetops the higher you go."))
     watchtower_stairs.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
 
+    # Watchtower side location
+    watchtower_side = Entity()
+    watchtower_side.add_component(DescriptionNode("Standing next to the watchtower you can't see much, but you seem "
+                                                  "to have a decent amount of cover"))
+    watchtower_side.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
+
     # Watchtower location
     watchtower_top = Entity()
     watchtower_top.add_component(DescriptionNode("Standing on top of the watchtower you can see out for miles. As far"
@@ -62,8 +68,14 @@ def main():
     # Dense forest
     dense_forest = Entity()
     dense_forest.add_component(DescriptionNode("You are barley able to get through to this part of the forest it is"
-                                               "is dense. {0}, you can't travel any further in this direction."))
+                                               "so dense."))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+
+    # Denser forest
+    denser_forest = Entity()
+    denser_forest.add_component(DescriptionNode("You can't get through to this part of the forest it is"
+                                                "so dense. {0}, you can't travel any further in this direction."))
+    denser_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
 
     # Map
     game_map = Entity()
@@ -80,10 +92,12 @@ def main():
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))
     engine.add_location(forest_can, (0, 1, 0))
+    engine.add_location(watchtower_side, (0, 2, 0))
     engine.add_location(forest_large_tree, (1, 0, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
     engine.add_location(watchtower_top, (0, 1, 2))
     engine.add_location(dense_forest, (0, -1, 0))
+    engine.add_location(denser_forest, (0, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
 

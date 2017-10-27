@@ -8,6 +8,7 @@ import pygame
 from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
+from Nowhere.EntityFramework.Systems.ImplementedSystems.UpdateCommandSystem import UpdateCommandSystem
 
 
 class Engine(object):
@@ -91,6 +92,13 @@ class Engine(object):
 
             self.input_box.update(self.events)
             self.input_box.draw(self.screen)
+
+            command_system = next((x for x in self.system_queue
+                                   if x.__class__.__name__ == UpdateCommandSystem.__name__), None)
+
+            if command_system and command_system.moves_taken > 3:
+                print("move limit reached")
+                return
 
             # Blit everything to the screen
             pygame.display.flip()

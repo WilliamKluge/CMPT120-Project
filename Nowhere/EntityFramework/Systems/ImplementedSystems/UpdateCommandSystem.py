@@ -30,6 +30,8 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 
+        self.moves_taken = 0
+
     @property
     def priority(self):
         return 100
@@ -57,6 +59,9 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
             command = self.possible_commands[user_input]  # Command the user triggered
             self.engine.add_system(command.create_system(self.engine, user_input))
             self.engine.input_box.value = ''
+
+            if command.key == "north" or command.key == "south" or command.key == "east" or command.key == "west":
+                self.moves_taken += 1
 
         self.__draw_commands(user_input)
 
