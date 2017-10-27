@@ -2,6 +2,9 @@
 # Author: William Kluge
 # Date: 2017-9-8
 
+# noinspection PyUnresolvedReferences
+import SetupPath  # Sets up the system path to import everything from Nowhere
+
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
