@@ -31,11 +31,13 @@ class MoveItemSystem(ISystem):
         target_inventory = self.target.components[InventoryNode.__name__].inventory
         using_inventory = self.using.components[InventoryNode.__name__].inventory
 
-        item_entity = next((x for x in self.using if x.name == self.item_name), None)
+        item_entity = next((x for x in using_inventory if x.name.lower() == self.item_name), None)
 
         if item_entity is None:
             pass
         else:
-            using_inventory.append(item_entity)
-            target_inventory.remove(item_entity)
+            target_inventory.append(item_entity)
+            using_inventory.remove(item_entity)
+
+        return True
 

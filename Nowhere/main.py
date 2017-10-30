@@ -8,6 +8,8 @@ import SetupPath  # Sets up the system path to import everything from Nowhere
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
+from Nowhere.EntityFramework.Nodes.InventoryNode import InventoryNode
+from Nowhere.EntityFramework.Nodes.ItemNode import ItemNode
 from Nowhere.EntityFramework.Nodes.LocationsVisitedNode import LocationsVisitedNode
 from Nowhere.EntityFramework.Nodes.MapMarkerNode import MapMarkerNode
 from Nowhere.EntityFramework.Nodes.NameNode import NameNode
@@ -33,6 +35,7 @@ def main():
                                         "you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
+    start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick")]))
 
     # Forest large tree location
     forest_large_tree = Entity()
@@ -88,6 +91,7 @@ def main():
     player.add_component(PositionNode((0, 0, 0), player))
     player.add_component(ScoreNode())
     player.add_component(NameNode())
+    player.add_component(InventoryNode([]))
 
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))

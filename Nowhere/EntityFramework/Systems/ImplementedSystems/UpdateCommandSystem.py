@@ -11,6 +11,7 @@ from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthComma
 from Nowhere.CommandFramework.ImplimentedCommands.PointsCommand import PointsCommand
 from Nowhere.CommandFramework.ImplimentedCommands.QuitCommand import QuitCommand
 from Nowhere.CommandFramework.ImplimentedCommands.SouthCommand import SouthCommand
+from Nowhere.CommandFramework.ImplimentedCommands.TakeCommand import TakeCommand
 from Nowhere.CommandFramework.ImplimentedCommands.UpCommand import UpCommand
 from Nowhere.CommandFramework.ImplimentedCommands.WestCommand import WestCommand
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
@@ -26,7 +27,7 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         super().__init__(engine)
         # Commands that can be run (any command that is any part of the game)
         self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
-                         MapCommand(), PointsCommand(), QuitCommand(), HelpCommand()]
+                         TakeCommand(), MapCommand(), PointsCommand(), QuitCommand(), HelpCommand()]
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 
