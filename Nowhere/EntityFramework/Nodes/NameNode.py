@@ -1,4 +1,4 @@
-# Holds the LocationNode class
+# Holds the NameNode class
 # Author: William Kluge
 # Date: 2017-9-25
 

@@ -30,7 +30,7 @@ class ISystem(ABC):
         :param target: Entity to target
         :return: None
         """
-        self.using = target
+        self.target = target
 
     def set_using(self, using):
         """
