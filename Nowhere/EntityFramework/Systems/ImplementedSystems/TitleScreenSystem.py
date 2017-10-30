@@ -7,6 +7,7 @@ import pygame
 
 from Nowhere.EntityFramework.Nodes.NameNode import NameNode
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
+from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawInventorySystem import DrawInventorySystem
 from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawLocationSystem import DrawLocationSystem
 from Nowhere.EntityFramework.Systems.ImplementedSystems.UpdateCommandSystem import UpdateCommandSystem
 
@@ -65,11 +66,17 @@ class TitleScreenSystem(ISystem):
             and self.engine.input_box.value
 
     def end(self):
+        # Sets the player name to the input
         self.engine.character.components[NameNode.__name__].name = self.engine.input_box.value
+        # Creates and adds the DrawLocationSystem
         draw_location_system = DrawLocationSystem(self.engine)
         draw_location_system.set_using(self.engine.character)
         self.engine.add_system(draw_location_system)
+        # Adds the UpdateCommandSystem
         self.engine.add_system(UpdateCommandSystem(self.engine))
+        # Adds the DrawInventorysystem
+        self.engine.add_system(DrawInventorySystem(self.engine))
+        # Clears events and prepares the environment for user input
         self.engine.events.clear()
         self.engine.input_box.value = ''  # Clear anything entered in the input box
         self.engine.input_box.prompt = 'Enter Command: '
