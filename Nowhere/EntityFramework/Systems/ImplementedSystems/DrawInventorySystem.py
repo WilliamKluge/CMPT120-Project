@@ -8,9 +8,7 @@ from Nowhere.EntityFramework.Systems.ImplementedSystems.DrawTextSystem import Dr
 
 
 class DrawInventorySystem(ISystem):
-    """Draws a scene"""
-
-    # TODO update to use new ISystem update due to command framework implimentation
+    """Draws the player's inventory"""
 
     @property
     def priority(self):

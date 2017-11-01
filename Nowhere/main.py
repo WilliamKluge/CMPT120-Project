@@ -35,7 +35,8 @@ def main():
                                         "you can make out some structure off in the distance"))
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
-    start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick")]))
+    start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick"),
+                                       ItemNode("Map", "This shows you where things are.")]))
 
     # Forest large tree location
     forest_large_tree = Entity()
