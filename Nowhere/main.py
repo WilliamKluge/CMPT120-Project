@@ -43,11 +43,13 @@ def main():
     forest_large_tree.add_component(DescriptionNode("A large tree obscures any sight you had above the trees in the "
                                                     "forest."))
     forest_large_tree.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
+    forest_large_tree.add_component(InventoryNode([]))
 
     # Forest can location
     forest_can = Entity()
     forest_can.add_component(DescriptionNode("{0}, you proceed in the forest to find an oil drum with a burning fire."))
     forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
+    forest_can.add_component(InventoryNode([ItemNode("Cloth Scrap", "A small piece of cloth.")]))
 
     # Watchtower stairs location
     watchtower_stairs = Entity()
@@ -55,12 +57,14 @@ def main():
                                                     " seem a little loose. You gain more visibility over the "
                                                     "treetops the higher you go."))
     watchtower_stairs.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
+    watchtower_stairs.add_component(InventoryNode([]))
 
     # Watchtower side location
     watchtower_side = Entity()
     watchtower_side.add_component(DescriptionNode("Standing next to the watchtower you can't see much, but you seem "
                                                   "to have a decent amount of cover"))
     watchtower_side.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
+    watchtower_side.add_component(InventoryNode([]))
 
     # Watchtower location
     watchtower_top = Entity()
@@ -68,18 +72,21 @@ def main():
                                                  " as you can tell, {0}, there is nothing but dense forest to your"
                                                  " north, west, and south, but there is an open field to you east."))
     watchtower_top.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
+    watchtower_top.add_component(InventoryNode([ItemNode("Flashlight", "This will help illuminate dark areas")]))
 
     # Dense forest
     dense_forest = Entity()
     dense_forest.add_component(DescriptionNode("You are barley able to get through to this part of the forest it is"
                                                "so dense."))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    dense_forest.add_component(InventoryNode([]))
 
     # Denser forest
     denser_forest = Entity()
     denser_forest.add_component(DescriptionNode("You can't get through to this part of the forest it is"
                                                 "so dense. {0}, you can't travel any further in this direction."))
     denser_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    denser_forest.add_component(InventoryNode([]))
 
     # Map
     game_map = Entity()
