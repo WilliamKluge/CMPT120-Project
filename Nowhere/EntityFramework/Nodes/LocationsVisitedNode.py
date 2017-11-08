@@ -17,12 +17,11 @@ class LocationsVisitedNode(object):
 
     def visit_location(self, location_coordinate):
         """
-        Make sure that this node records that a location has been visited
-        :param location_coordinate: Location that the user visited
+        Record the latest position of an entity
+        :param location_coordinate: Location the user visited
         :return: None
         """
-        if location_coordinate not in self.visited_locations:
-            self.visited_locations.append(location_coordinate)
+        self.visited_locations.append(location_coordinate)
 
     def has_visited(self, location_coordinate):
         """

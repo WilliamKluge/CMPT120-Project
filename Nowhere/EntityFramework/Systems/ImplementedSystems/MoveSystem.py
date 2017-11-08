@@ -10,7 +10,7 @@ from Nowhere.EntityFramework.Systems.ISystem import ISystem
 class MoveSystem(ISystem):
     """Move an entity"""
 
-    # TODO update to use new ISystem update due to command framework implimentation
+    # TODO update to use new ISystem update due to command framework implementation
 
     @property
     def priority(self):
@@ -37,7 +37,10 @@ class MoveSystem(ISystem):
         character_locations_visited = self.engine.character.components[LocationsVisitedNode.__name__]
 
         if not character_locations_visited.has_visited(new_location):
+            # If the user has not yet been to this location, add 5 to their score
             self.engine.character.components[ScoreNode.__name__].change_score(5)
-            character_locations_visited.visit_location(new_location)
+
+        # Record every location a user has been to so that their path can be constructed
+        character_locations_visited.visit_location(new_location)
 
         return True

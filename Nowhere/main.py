@@ -33,6 +33,7 @@ def main():
     start = Entity()
     start.add_component(DescriptionNode("{0}, you are in a foggy forest. The landscape around you is hard to see, but "
                                         "you can make out some structure off in the distance"))
+    start.add_component(NameNode("Start"))
     start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
     start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick"),
@@ -42,12 +43,14 @@ def main():
     forest_large_tree = Entity()
     forest_large_tree.add_component(DescriptionNode("A large tree obscures any sight you had above the trees in the "
                                                     "forest."))
+    forest_large_tree.add_component(NameNode("The Large Tree"))
     forest_large_tree.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
     forest_large_tree.add_component(InventoryNode([]))
 
     # Forest can location
     forest_can = Entity()
     forest_can.add_component(DescriptionNode("{0}, you proceed in the forest to find an oil drum with a burning fire."))
+    forest_can.add_component(NameNode("Burning Drum"))
     forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
     forest_can.add_component(InventoryNode([ItemNode("Cloth Scrap", "A small piece of cloth.")]))
 
@@ -56,6 +59,7 @@ def main():
     watchtower_stairs.add_component(DescriptionNode("As you make your way up the watchtower you notice the stairs"
                                                     " seem a little loose. You gain more visibility over the "
                                                     "treetops the higher you go."))
+    watchtower_stairs.add_component(NameNode("Watchtower Stairs"))
     watchtower_stairs.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
     watchtower_stairs.add_component(InventoryNode([]))
 
@@ -63,6 +67,7 @@ def main():
     watchtower_side = Entity()
     watchtower_side.add_component(DescriptionNode("Standing next to the watchtower you can't see much, but you seem "
                                                   "to have a decent amount of cover"))
+    watchtower_side.add_component(NameNode("Watchtower Side"))
     watchtower_side.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
     watchtower_side.add_component(InventoryNode([]))
 
@@ -71,6 +76,7 @@ def main():
     watchtower_top.add_component(DescriptionNode("Standing on top of the watchtower you can see out for miles. As far"
                                                  " as you can tell, {0}, there is nothing but dense forest to your"
                                                  " north, west, and south, but there is an open field to you east."))
+    watchtower_top.add_component(NameNode("Watchtower Top"))
     watchtower_top.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
     watchtower_top.add_component(InventoryNode([ItemNode("Flashlight", "This will help illuminate dark areas")]))
 
@@ -78,6 +84,7 @@ def main():
     dense_forest = Entity()
     dense_forest.add_component(DescriptionNode("You are barley able to get through to this part of the forest it is"
                                                "so dense."))
+    dense_forest.add_component(NameNode("Dense Forest"))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     dense_forest.add_component(InventoryNode([]))
 
@@ -85,6 +92,7 @@ def main():
     denser_forest = Entity()
     denser_forest.add_component(DescriptionNode("You can't get through to this part of the forest it is"
                                                 "so dense. {0}, you can't travel any further in this direction."))
+    denser_forest.add_component(NameNode("Denser Forest"))
     denser_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     denser_forest.add_component(InventoryNode([]))
 
