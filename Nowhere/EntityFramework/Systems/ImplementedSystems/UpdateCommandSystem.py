@@ -6,6 +6,7 @@ import pygame
 from Nowhere.CommandFramework.ImplimentedCommands.DownCommand import DownCommand
 from Nowhere.CommandFramework.ImplimentedCommands.EastCommand import EastCommand
 from Nowhere.CommandFramework.ImplimentedCommands.HelpCommand import HelpCommand
+from Nowhere.CommandFramework.ImplimentedCommands.LookCommand import LookCommand
 from Nowhere.CommandFramework.ImplimentedCommands.MapCommand import MapCommand
 from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthCommand
 from Nowhere.CommandFramework.ImplimentedCommands.PointsCommand import PointsCommand
@@ -27,7 +28,7 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         super().__init__(engine)
         # Commands that can be run (any command that is any part of the game)
         self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
-                         TakeCommand(), MapCommand(), PointsCommand(), QuitCommand(), HelpCommand()]
+                         TakeCommand(), LookCommand(), MapCommand(), PointsCommand(), QuitCommand(), HelpCommand()]
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 
