@@ -19,7 +19,9 @@ class TakeCommand(ICommand):
 
     def is_possible(self, engine):
         character_location = engine.locations[engine.character.components[PositionNode.__name__].location]
-        return len(character_location.components[InventoryNode.__name__].inventory) > 0
+        location_inventory = character_location.components[InventoryNode.__name__]
+        # The location has been searched and there are items in the inventory
+        return location_inventory.searched and len(location_inventory.inventory) > 0
 
     def is_multipart(self):
         return True

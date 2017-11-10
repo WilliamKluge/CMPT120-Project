@@ -4,10 +4,11 @@
 
 
 class InventoryNode(object):
-    """Holds the data for a game item"""
+    """Holds the data for items an entity holds"""
 
     def __init__(self, inventory):
         """
         :param inventory: Array of items to initialize the inventory with
         """
         self.inventory = inventory
+        self.searched = False
