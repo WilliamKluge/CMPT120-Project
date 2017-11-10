@@ -8,7 +8,6 @@ import pygame
 from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
-from Nowhere.EntityFramework.Systems.ImplementedSystems.UpdateCommandSystem import UpdateCommandSystem
 
 
 class Engine(object):
@@ -22,6 +21,7 @@ class Engine(object):
     entities = []  # Entities of the game engine TODO move locations and character here
     game_font = None  # Font to use for any text put on the screen
     system_queue = []  # The processes to be run the update loop
+    __ending_conditions = []
     __handled_systems = []  # Systems controlled by other systems and can be run without checking their end state
 
     def __init__(self):
@@ -93,12 +93,12 @@ class Engine(object):
             self.input_box.update(self.events)
             self.input_box.draw(self.screen)
 
-            command_system = next((x for x in self.system_queue
-                                   if x.__class__.__name__ == UpdateCommandSystem.__name__), None)
-
-            if command_system and command_system.moves_taken > 300:
-                print("move limit reached")
-                return
+            for condition in self.__ending_conditions:
+                # Iterate through the game ending conditions
+                if condition.condition_met():
+                    # If the condition to end the game has been met, print its message and return
+                    print(condition.ending_message())  # TODO put this into the GUI
+                    return
 
             # Blit everything to the screen
             pygame.display.flip()
@@ -136,6 +136,14 @@ class Engine(object):
         :return: None
         """
         self.character = entity
+
+    def add_end_condition(self, condition):
+        """
+        Adds an end condition to be checked
+        :param condition: IEndCondition child
+        :return: None
+        """
+        self.__ending_conditions.append(condition)
 
     @staticmethod
     def vertical_add(*iterables):

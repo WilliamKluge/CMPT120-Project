@@ -5,6 +5,7 @@
 # noinspection PyUnresolvedReferences
 import SetupPath  # Sets up the system path to import everything from Nowhere
 
+from Nowhere.EndConditionFramework.ImplimentedConditions.TurnLossCondition import TurnLossCondition
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
@@ -137,6 +138,9 @@ def main():
     engine.add_location(river, (0, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
+
+    # Add ending conditions
+    engine.add_end_condition(TurnLossCondition(engine))
 
     # Starts the engine updating process
     engine.update()
