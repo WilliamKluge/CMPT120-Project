@@ -28,13 +28,7 @@ class SearchCommand(ICommand):
         # Get location's inventory
         inventory = location.components[InventoryNode.__name__]
 
-        inventory_list = ""
-
-        if len(inventory.inventory) > 0:
-            for item in inventory.inventory:
-                inventory_list += item.name + " "
-        else:
-            inventory_list = "No items found at this location."
+        inventory_list = inventory.search()
 
         inventory.searched = True
 

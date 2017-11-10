@@ -17,4 +17,4 @@ class TurnLossCondition(IEndCondition):
         command_system = next((x for x in self.engine.system_queue
                                if x.__class__.__name__ == UpdateCommandSystem.__name__), None)
 
-        return command_system and command_system.moves_taken > 3
+        return command_system and command_system.moves_taken > 300

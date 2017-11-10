@@ -12,3 +12,17 @@ class InventoryNode(object):
         """
         self.inventory = inventory
         self.searched = False
+
+    def search(self):
+        """
+        :return: A string containing the name of every item in the inventory
+        """
+        inventory_list = ""
+
+        if len(self.inventory) > 0:
+            for item in self.inventory:
+                inventory_list += item.name + " "
+        else:
+            inventory_list = "No items found at this location."
+
+        return inventory_list

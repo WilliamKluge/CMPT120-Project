@@ -5,6 +5,8 @@
 # noinspection PyUnresolvedReferences
 import SetupPath  # Sets up the system path to import everything from Nowhere
 
+from Nowhere.EndConditionFramework.ImplimentedConditions.MapRiverCondition import MapRiverLossCondition
+from Nowhere.EndConditionFramework.ImplimentedConditions.MapTowerWinCondition import MapTowerWinCondition
 from Nowhere.EndConditionFramework.ImplimentedConditions.TurnLossCondition import TurnLossCondition
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
@@ -141,6 +143,8 @@ def main():
 
     # Add ending conditions
     engine.add_end_condition(TurnLossCondition(engine))
+    engine.add_end_condition(MapRiverLossCondition(engine))
+    engine.add_end_condition(MapTowerWinCondition(engine))
 
     # Starts the engine updating process
     engine.update()
