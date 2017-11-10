@@ -96,7 +96,7 @@ class Engine(object):
             command_system = next((x for x in self.system_queue
                                    if x.__class__.__name__ == UpdateCommandSystem.__name__), None)
 
-            if command_system and command_system.moves_taken > 3:
+            if command_system and command_system.moves_taken > 300:
                 print("move limit reached")
                 return
 

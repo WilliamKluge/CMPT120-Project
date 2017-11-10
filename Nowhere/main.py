@@ -83,7 +83,7 @@ def main():
     # Dense forest
     dense_forest = Entity()
     dense_forest.add_component(DescriptionNode("You are barley able to get through to this part of the forest it is"
-                                               "so dense."))
+                                               " so dense."))
     dense_forest.add_component(NameNode("Dense Forest"))
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     dense_forest.add_component(InventoryNode([]))
@@ -91,10 +91,25 @@ def main():
     # Denser forest
     denser_forest = Entity()
     denser_forest.add_component(DescriptionNode("You can't get through to this part of the forest it is"
-                                                "so dense. {0}, you can't travel any further in this direction."))
+                                                " so dense. {0}, you can't travel any further in this direction."))
     denser_forest.add_component(NameNode("Denser Forest"))
     denser_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     denser_forest.add_component(InventoryNode([]))
+
+    # Hill
+    hill = Entity()
+    hill.add_component(DescriptionNode("You look down a hill populated by tress with a rushing river at the bottom"))
+    hill.add_component(NameNode("Hill to the River"))
+    hill.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    hill.add_component(InventoryNode([]))
+
+    # River
+    river = Entity()
+    river.add_component(DescriptionNode("You stand by the side of the river and see that it is perfectly clear."
+                                        "Something shimmers at the bottom."))
+    river.add_component(NameNode("The River"))
+    river.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    river.add_component(InventoryNode([]))
 
     # Map
     game_map = Entity()
@@ -112,12 +127,14 @@ def main():
     # Add entities to the game engine
     engine.add_location(start, (0, 0, 0))
     engine.add_location(forest_can, (0, 1, 0))
-    engine.add_location(watchtower_side, (0, 2, 0))
-    engine.add_location(forest_large_tree, (1, 0, 0))
     engine.add_location(watchtower_stairs, (0, 1, 1))
     engine.add_location(watchtower_top, (0, 1, 2))
+    engine.add_location(watchtower_side, (0, 2, 0))
+    engine.add_location(forest_large_tree, (1, 0, 0))
     engine.add_location(dense_forest, (0, -1, 0))
     engine.add_location(denser_forest, (0, -2, 0))
+    engine.add_location(hill, (0, -1, 0))
+    engine.add_location(river, (0, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
 
