@@ -5,9 +5,9 @@
 # noinspection PyUnresolvedReferences
 import SetupPath  # Sets up the system path to import everything from Nowhere
 
-from Nowhere.EndConditionFramework.ImplimentedConditions.MapRiverCondition import MapRiverLossCondition
-from Nowhere.EndConditionFramework.ImplimentedConditions.MapTowerWinCondition import MapTowerWinCondition
-from Nowhere.EndConditionFramework.ImplimentedConditions.TurnLossCondition import TurnLossCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.MapRiverLossCondition import MapRiverLossCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.MapTowerWinCondition import MapTowerWinCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.TurnLossCondition import TurnLossCondition
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
