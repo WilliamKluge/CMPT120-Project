@@ -3,20 +3,20 @@
 # Date: 2017-9-25
 import pygame
 
-from Nowhere.CommandFramework.ImplimentedCommands.DownCommand import DownCommand
-from Nowhere.CommandFramework.ImplimentedCommands.DropCommand import DropCommand
-from Nowhere.CommandFramework.ImplimentedCommands.EastCommand import EastCommand
-from Nowhere.CommandFramework.ImplimentedCommands.HelpCommand import HelpCommand
-from Nowhere.CommandFramework.ImplimentedCommands.LookCommand import LookCommand
-from Nowhere.CommandFramework.ImplimentedCommands.MapCommand import MapCommand
-from Nowhere.CommandFramework.ImplimentedCommands.NorthCommand import NorthCommand
-from Nowhere.CommandFramework.ImplimentedCommands.PointsCommand import PointsCommand
-from Nowhere.CommandFramework.ImplimentedCommands.QuitCommand import QuitCommand
-from Nowhere.CommandFramework.ImplimentedCommands.SearchCommand import SearchCommand
-from Nowhere.CommandFramework.ImplimentedCommands.SouthCommand import SouthCommand
-from Nowhere.CommandFramework.ImplimentedCommands.TakeCommand import TakeCommand
-from Nowhere.CommandFramework.ImplimentedCommands.UpCommand import UpCommand
-from Nowhere.CommandFramework.ImplimentedCommands.WestCommand import WestCommand
+from Nowhere.CommandFramework.ImplementedCommands.DropCommand import DropCommand
+from Nowhere.CommandFramework.ImplementedCommands.DownCommand import DownCommand
+from Nowhere.CommandFramework.ImplementedCommands.EastCommand import EastCommand
+from Nowhere.CommandFramework.ImplementedCommands.HelpCommand import HelpCommand
+from Nowhere.CommandFramework.ImplementedCommands.LookCommand import LookCommand
+from Nowhere.CommandFramework.ImplementedCommands.MapCommand import MapCommand
+from Nowhere.CommandFramework.ImplementedCommands.NorthCommand import NorthCommand
+from Nowhere.CommandFramework.ImplementedCommands.PointsCommand import PointsCommand
+from Nowhere.CommandFramework.ImplementedCommands.QuitCommand import QuitCommand
+from Nowhere.CommandFramework.ImplementedCommands.SearchCommand import SearchCommand
+from Nowhere.CommandFramework.ImplementedCommands.SouthCommand import SouthCommand
+from Nowhere.CommandFramework.ImplementedCommands.TakeCommand import TakeCommand
+from Nowhere.CommandFramework.ImplementedCommands.UpCommand import UpCommand
+from Nowhere.CommandFramework.ImplementedCommands.WestCommand import WestCommand
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
 

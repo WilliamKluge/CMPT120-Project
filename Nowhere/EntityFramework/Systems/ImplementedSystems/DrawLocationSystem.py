@@ -44,7 +44,7 @@ class DrawLocationSystem(ISystem):  # TODO make this draw to a location not the 
                                               (w * 0.05, w * 0.04)))
 
         if using_location_path.index(using_location) == len(using_location_path) - 1:
-            # If the coordinate exists in the location path at the end of the array, draw long description
+            # If the coordinate exists in the location path only at the end of the array, draw long description
             self.engine.add_system(DrawTextSystem(self.engine,
                                                   target_location.components[DescriptionNode.__name__].description,
                                                   (w * 0.05, w * 0.05),

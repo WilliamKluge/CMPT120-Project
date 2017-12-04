@@ -14,51 +14,58 @@ their environment and wit they need to find their way back to somewhere before i
   <a href="http://www.pygame.org/wiki/GettingStarted#Pygame Installation">their website</a> for details.
 
 ## Project Structure
-* Assets<br>
-  Textuers for the game. all background images are 936x527 all map icons are 47x26
-* CommandFramework<br>
+* **Assets**  
+  Textures for the game. all background images are 936x527 all map icons are 47x26
+* **CommandFramework**  
   Contains code related to how the user's input is interpreted as commands
-* <b>EntityFramework</b><br>
+  * **ImplementedCommands**  
+  Contains the definitions of *ICommand* children that are the actual commands of the game
+* **EndConditionFramework**  
+  Contains code related to defining conditions that the game should end within the user quitting
+  * **ImplementedCommands**
+  Contains children of *IEndCondition* that define the actual conditions that end the game
+* **EntityFramework**  
   Contains code related to constructing the 
   <a href="http://www.richardlord.net/blog/ecs/what-is-an-entity-framework.html">entity framework</a>
-  * <b>Nodes</b>
+  * **Nodes**  
     Contains defined nodes (used to store attributes for entities)
-  * <b>Systems</b>
+  * **Systems**  
     Code related to systems
-    * <b>ImplementedSystems</b>
+    * **ImplementedSystems**  
       Defined systems (how it will behave)
-    * <i>Engine.py</i>
+    * *Engine.py*  
       The central game engine that controls the running of systems
-    * <i>ISystem.py</i>
+    * *ISystem.py*  
       Interface for building a system
-  * <i>Entity.py</i>
+  * *Entity.py*  
     Definition of what an entity should be (essentially a container for nodes).
-* <b>PygameLibraries</b> Libraries that add to the functionality of pygame. These need to be bundled with the program 
+* **PygameLibraries** Libraries that add to the functionality of pygame. These need to be bundled with the program 
 source.
-  * <i>eztext.py</i> Library for text input in the pygame gui
-* <i>main.py</i> The main function of the game
+  * *eztext.py* Library for text input in the pygame gui
+* *main.py* The main function of the game
 
-## Grading Project 3
-* **Use lists to store location data** See Engine::Locations
-  * **Store all location descriptions in one list instead of separate variables.** See DescriptionNode (this just holds
-   the variable for describing the location) used in Entity::components
-  * **Store the boolean “has been there” values in another list.** See LocationsVisitedNode applied in 
-  Entity::Components. The boolean aspect of this can be seen as LocationsVisited::has_visited(), even though 
-  LocationsVisited's main purpose is to record (in order) where the player discovered.
-  * **Your game must now define at least eight (8) different locations.** See main()
-  * **Draw a diagram of your game world that shows all paths between locations.** See game map.pdf
-  * **Continue refactoring your code to rely on functions for specific tasks.**
-    * **Show introduction** See TitleScreenSystem added to queue in main.
-    * **Customize Player** See TitleScreenSystem line 68
-    * **Initialize Game Data** See main() (any lines with entities or engine)
-    * **Do game loop** See Engine::update()
-    * **Show ending** See QuitSystem, not really tied to main but triggered by events in systems initialized in main()
-  * **Make a function to handle the game loop itself** See Engine::Update
-    * **Show Scene** See DrawLocationSystem
-    * **Process Input** See UpdateCommandSystem
-    * **Update Game** See pretty much any system
-  * **Make a goto function that handles moving the player and updating the score** See MoveSystem
-    * **Case Insensitive** See UpdateCommandSystem line 41
-    * **Two new commands** See MapCommand and PointsCommand
-  * **Add a "time limit"** See Engine line 99-101
-  
+## Grading Project 4
+* **Change your handling of player movement to rely on a matrix.** This is a slightly abstract was of thinking about it,
+but the dictionary located in Engine::locations serves as the first dimension and then the contents of the entities
+within act as the second dimension. For simple look at how I would use a traditional matrix, see MatrixMovement.py.
+* **Your game must now define at least ten (10) different locations.** See main.py
+  * **Add a new list to the short name for each location (such as “the beach”).** See main.py location initialization,
+  added a NameNode to locations.
+  * **After discovering a location, subsequent visits show only the short name.** See DrawLocationSystem lines 46-51
+* **Player must now have an inventory and some locations contain items.** See main.py player initializing, adding
+InventoryNode
+  * **The inventory is a list that holds items the player picks up.** See InventoryNode::inventory
+  * **You will need another list of the items at each location.** See main.py location initialization, adding
+  InventoryNode
+  * **At least three (3) of your locations must contain an item at the start.** See main.py location initialization,
+  parameters when adding InventoryNode
+  * **One item must be a map – “map” command works only if player has it.** See main.py line 43
+* **Add new player commands:**
+  * **Look around – displays the long description of a location.** See LookCommand
+  * **Search/Examine – reveals the item (if any) at the current location.** See SearchCommand
+    * **Record whether locations have been searched using a list of booleans.** See InventoryNode::searched
+  * **Take – add item to the inventory (and remove from current location).** See TakeCommand
+    * **Only allow the player to take an item if she has first searched the area.** See TakeCommand::is_possible
+* **Add new win and loss conditions in addition to what you have so far.** See main.py lines 145-147
+  * **Bringing a specific item to a specific location wins the game.** See MapTowerWinCondition
+  * **Entering a specific location without a specific item loses the game.** See MapRiverLossCondition

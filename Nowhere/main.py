@@ -5,9 +5,9 @@
 # noinspection PyUnresolvedReferences
 import SetupPath  # Sets up the system path to import everything from Nowhere
 
-from Nowhere.EndConditionFramework.ImplimentedConditions.MapRiverCondition import MapRiverLossCondition
-from Nowhere.EndConditionFramework.ImplimentedConditions.MapTowerWinCondition import MapTowerWinCondition
-from Nowhere.EndConditionFramework.ImplimentedConditions.TurnLossCondition import TurnLossCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.MapRiverLossCondition import MapRiverLossCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.MapTowerWinCondition import MapTowerWinCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.TurnLossCondition import TurnLossCondition
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
 from Nowhere.EntityFramework.Nodes.DescriptionNode import DescriptionNode
@@ -32,17 +32,17 @@ def main():
                                         "You don't know where you are or how you got there. Unless you can find a way "
                                         "to civilization or figure out how to survive, you will die."))
 
-    # Start location
+    # Start location (0, 0, 0) needs better map icon
     start = Entity()
     start.add_component(DescriptionNode("{0}, you are in a foggy forest. The landscape around you is hard to see, but "
                                         "you can make out some structure off in the distance"))
     start.add_component(NameNode("Start"))
-    start.add_component(BackgroundNode("Assets/0-0-0Background.png", engine))
+    start.add_component(BackgroundNode("Assets/GenericForestBackground.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
     start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick"),
                                        ItemNode("Map", "This shows you where things are.")]))
 
-    # Forest large tree location
+    # Forest large tree location (1, 0, 0) needs icon
     forest_large_tree = Entity()
     forest_large_tree.add_component(DescriptionNode("A large tree obscures any sight you had above the trees in the "
                                                     "forest."))
@@ -50,14 +50,14 @@ def main():
     forest_large_tree.add_component(BackgroundNode("Assets/1-0-0Background.png", engine))
     forest_large_tree.add_component(InventoryNode([]))
 
-    # Forest can location
+    # Forest can location (0, 1, 0) needs icon
     forest_can = Entity()
     forest_can.add_component(DescriptionNode("{0}, you proceed in the forest to find an oil drum with a burning fire."))
     forest_can.add_component(NameNode("Burning Drum"))
-    forest_can.add_component(BackgroundNode("Assets/0-1-0Background.png", engine))
+    forest_can.add_component(BackgroundNode("Assets/GenericForestBackground.png", engine))
     forest_can.add_component(InventoryNode([ItemNode("Cloth Scrap", "A small piece of cloth.")]))
 
-    # Watchtower stairs location
+    # Watchtower stairs location (0, 1, 1) needs background and icon
     watchtower_stairs = Entity()
     watchtower_stairs.add_component(DescriptionNode("As you make your way up the watchtower you notice the stairs"
                                                     " seem a little loose. You gain more visibility over the "
@@ -66,7 +66,7 @@ def main():
     watchtower_stairs.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
     watchtower_stairs.add_component(InventoryNode([]))
 
-    # Watchtower side location
+    # Watchtower side location (0, 2, 0) needs background and icon
     watchtower_side = Entity()
     watchtower_side.add_component(DescriptionNode("Standing next to the watchtower you can't see much, but you seem "
                                                   "to have a decent amount of cover"))
@@ -74,7 +74,7 @@ def main():
     watchtower_side.add_component(BackgroundNode("Assets/0-1-1Background.png", engine))
     watchtower_side.add_component(InventoryNode([]))
 
-    # Watchtower location
+    # Watchtower top location (0, 1, 2) needs background and icon
     watchtower_top = Entity()
     watchtower_top.add_component(DescriptionNode("Standing on top of the watchtower you can see out for miles. As far"
                                                  " as you can tell, {0}, there is nothing but dense forest to your"
@@ -83,7 +83,7 @@ def main():
     watchtower_top.add_component(BackgroundNode("Assets/0-1-2Background.png", engine))
     watchtower_top.add_component(InventoryNode([ItemNode("Flashlight", "This will help illuminate dark areas")]))
 
-    # Dense forest
+    # Dense forest (0, -1, 0) needs background and icon
     dense_forest = Entity()
     dense_forest.add_component(DescriptionNode("You are barley able to get through to this part of the forest it is"
                                                " so dense."))
@@ -91,7 +91,7 @@ def main():
     dense_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     dense_forest.add_component(InventoryNode([]))
 
-    # Denser forest
+    # Denser forest (0, -2, 0) needs background and icon
     denser_forest = Entity()
     denser_forest.add_component(DescriptionNode("You can't get through to this part of the forest it is"
                                                 " so dense. {0}, you can't travel any further in this direction."))
@@ -99,14 +99,14 @@ def main():
     denser_forest.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     denser_forest.add_component(InventoryNode([]))
 
-    # Hill
+    # Hill (0, -1, 0) needs background and icon
     hill = Entity()
     hill.add_component(DescriptionNode("You look down a hill populated by tress with a rushing river at the bottom"))
     hill.add_component(NameNode("Hill to the River"))
     hill.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     hill.add_component(InventoryNode([]))
 
-    # River
+    # River (0, -2, 0) needs background and icon
     river = Entity()
     river.add_component(DescriptionNode("You stand by the side of the river and see that it is perfectly clear."
                                         "Something shimmers at the bottom."))
