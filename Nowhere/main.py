@@ -123,6 +123,22 @@ def main():
     river.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
     river.add_component(InventoryNode([]))
 
+    # North River (1, -2, 0) needs background and icon
+    north_river = Entity()
+    north_river.add_component(DescriptionNode("You continue along the river going north."))
+    north_river.add_component(NameNode("North River"))
+    north_river.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    north_river.add_component(InventoryNode([
+        ItemNode("Quarter", "This can pay for 1/4 of something on a dollar menu!")]))
+
+    # South River (-1, -2, 0) needs background and icon
+    south_river = Entity()
+    south_river.add_component(DescriptionNode("You continue along the river going south."))
+    south_river.add_component(NameNode("South River"))
+    south_river.add_component(BackgroundNode("Assets/0--1-0Background.png", engine))
+    south_river.add_component(InventoryNode([
+        ItemNode("Quarter", "This can pay for 1/4 of something on a dollar menu!")]))
+
     # Map
     game_map = Entity()
     game_map.add_component(BackgroundNode("Assets/MapBackground.png", engine))
@@ -147,6 +163,8 @@ def main():
     engine.add_location(denser_forest, (0, -2, 0))
     engine.add_location(hill, (0, -1, 0))
     engine.add_location(river, (0, -2, 0))
+    engine.add_location(north_river, (1, -2, 0))
+    engine.add_location(south_river, (-1, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
 
