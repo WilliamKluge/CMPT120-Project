@@ -10,6 +10,7 @@ class MapTowerWinCondition(IEndCondition):
     """
     Condition for if the player uses the map while they are at the top of the tower
     """
+
     def __init__(self, engine):
         """
         :param engine: Engine controlling the game

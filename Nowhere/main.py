@@ -5,8 +5,8 @@
 # noinspection PyUnresolvedReferences
 import SetupPath  # Sets up the system path to import everything from Nowhere
 
-from Nowhere.EndConditionFramework.ImplementedConditions.MapRiverLossCondition import MapRiverLossCondition
 from Nowhere.EndConditionFramework.ImplementedConditions.MapTowerWinCondition import MapTowerWinCondition
+from Nowhere.EndConditionFramework.ImplementedConditions.StickRiverLossCondition import StickRiverLossCondition
 from Nowhere.EndConditionFramework.ImplementedConditions.TurnLossCondition import TurnLossCondition
 from Nowhere.EntityFramework.Entity import Entity
 from Nowhere.EntityFramework.Nodes.BackgroundNode import BackgroundNode
@@ -28,7 +28,8 @@ def main():
 
     # Add ending conditions
     engine.add_end_condition(TurnLossCondition(engine))
-    engine.add_end_condition(MapRiverLossCondition(engine))
+    stick_river_loss_condition = StickRiverLossCondition(engine)
+    engine.add_end_condition(stick_river_loss_condition)
     map_tower_win_condition = MapTowerWinCondition(engine)
     engine.add_end_condition(map_tower_win_condition)
 
@@ -45,7 +46,8 @@ def main():
     start.add_component(NameNode("Start"))
     start.add_component(BackgroundNode("Assets/GenericForestBackground.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
-    start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick"),
+    start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick",
+                                                use_command=stick_river_loss_condition.check_condition),
                                        ItemNode("Map", "This shows you where things are.",
                                                 use_command=map_tower_win_condition.check_condition)]))
 
