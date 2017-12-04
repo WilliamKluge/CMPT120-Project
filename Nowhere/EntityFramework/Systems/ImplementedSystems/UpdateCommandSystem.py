@@ -3,8 +3,8 @@
 # Date: 2017-9-25
 import pygame
 
-from Nowhere.CommandFramework.ImplementedCommands.DropCommand import DropCommand
 from Nowhere.CommandFramework.ImplementedCommands.DownCommand import DownCommand
+from Nowhere.CommandFramework.ImplementedCommands.DropCommand import DropCommand
 from Nowhere.CommandFramework.ImplementedCommands.EastCommand import EastCommand
 from Nowhere.CommandFramework.ImplementedCommands.HelpCommand import HelpCommand
 from Nowhere.CommandFramework.ImplementedCommands.LookCommand import LookCommand
@@ -16,6 +16,7 @@ from Nowhere.CommandFramework.ImplementedCommands.SearchCommand import SearchCom
 from Nowhere.CommandFramework.ImplementedCommands.SouthCommand import SouthCommand
 from Nowhere.CommandFramework.ImplementedCommands.TakeCommand import TakeCommand
 from Nowhere.CommandFramework.ImplementedCommands.UpCommand import UpCommand
+from Nowhere.CommandFramework.ImplementedCommands.UseCommand import UseCommand
 from Nowhere.CommandFramework.ImplementedCommands.WestCommand import WestCommand
 from Nowhere.EntityFramework.Systems.ISystem import ISystem
 
@@ -30,8 +31,8 @@ class UpdateCommandSystem(ISystem):  # TODO make it so that commands use parts o
         super().__init__(engine)
         # Commands that can be run (any command that is any part of the game)
         self.commands = [NorthCommand(), SouthCommand(), EastCommand(), WestCommand(), UpCommand(), DownCommand(),
-                         SearchCommand(), TakeCommand(), DropCommand(), LookCommand(), MapCommand(), PointsCommand(),
-                         QuitCommand(), HelpCommand()]
+                         SearchCommand(), UseCommand(), TakeCommand(), DropCommand(), LookCommand(), MapCommand(),
+                         PointsCommand(), QuitCommand(), HelpCommand()]
         # Commands that the user can enter in the current iteration
         self.possible_commands = dict()
 

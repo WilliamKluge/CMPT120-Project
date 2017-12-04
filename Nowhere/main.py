@@ -26,6 +26,12 @@ def main():
     # Game engine
     engine = Engine()
 
+    # Add ending conditions
+    engine.add_end_condition(TurnLossCondition(engine))
+    engine.add_end_condition(MapRiverLossCondition(engine))
+    map_tower_win_condition = MapTowerWinCondition(engine)
+    engine.add_end_condition(map_tower_win_condition)
+
     # Adds the title screen to the game
     engine.add_system(TitleScreenSystem(engine,
                                         "Nowhere",
@@ -40,7 +46,8 @@ def main():
     start.add_component(BackgroundNode("Assets/GenericForestBackground.png", engine))
     start.add_component(MapMarkerNode("Assets/0-0-0MapMarker.png", engine))
     start.add_component(InventoryNode([ItemNode("Stick", "This is just a stick"),
-                                       ItemNode("Map", "This shows you where things are.")]))
+                                       ItemNode("Map", "This shows you where things are.",
+                                                use_command=map_tower_win_condition.check_condition)]))
 
     # Forest large tree location (1, 0, 0) needs icon
     forest_large_tree = Entity()
@@ -140,11 +147,6 @@ def main():
     engine.add_location(river, (0, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
-
-    # Add ending conditions
-    engine.add_end_condition(TurnLossCondition(engine))
-    engine.add_end_condition(MapRiverLossCondition(engine))
-    engine.add_end_condition(MapTowerWinCondition(engine))
 
     # Starts the engine updating process
     engine.update()
