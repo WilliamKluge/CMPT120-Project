@@ -1,27 +1,25 @@
-# Holds the TakeCommand class
+# Holds the DropCommand class
 # Author: William Kluge
-# Date: 2017-10-30
+# Date: 2017-12-4
 from Nowhere.CommandFramework.ICommand import ICommand
 from Nowhere.EntityFramework.Nodes.InventoryNode import InventoryNode
 from Nowhere.EntityFramework.Nodes.PositionNode import PositionNode
 from Nowhere.EntityFramework.Systems.ImplementedSystems.MoveItemSystem import MoveItemSystem
 
 
-class TakeCommand(ICommand):
+class DropCommand(ICommand):
 
     @property
     def help_string(self):
-        return "Picks up an item from the character's current location."
+        return "Drops an item from the character's inventory at the character's current location."
 
     @property
     def key(self):
-        return "take"
+        return "drop"
 
     def is_possible(self, engine):
-        character_location = engine.locations[engine.character.components[PositionNode.__name__].location]
-        location_inventory = character_location.components[InventoryNode.__name__]
         # The location has been searched and there are items in the inventory
-        return location_inventory.searched and len(location_inventory.inventory) > 0
+        return len(engine.character.components[InventoryNode.__name__].inventory) > 0
 
     def is_multipart(self):
         return True
@@ -33,20 +31,17 @@ class TakeCommand(ICommand):
         :param engine: Game engine
         :return: Keys for the variations of this command
         """
-        # Local import to avoid circular inclusion
-
         # It is guaranteed for this to not return none because this is called from an UpdateCommandSystem object
-        location = engine.locations[engine.character.components[PositionNode.__name__].location]
         command_keys = []
 
-        for item in location.components[InventoryNode.__name__].inventory:
-            command_keys.append("take " + item.name.lower())
+        for item in engine.character.components[InventoryNode.__name__].inventory:
+            command_keys.append("drop " + item.name.lower())
 
         return command_keys
 
     def create_system(self, engine, user_input):
         system = MoveItemSystem(engine)
-        system.set_using(engine.locations[engine.character.components[PositionNode.__name__].location])
-        system.set_target(engine.character)
+        system.set_using(engine.character)
+        system.set_target(engine.locations[engine.character.components[PositionNode.__name__].location])
         system.set_item(user_input[5:])  # Passed every character past the "take " portion of user input
         return system
