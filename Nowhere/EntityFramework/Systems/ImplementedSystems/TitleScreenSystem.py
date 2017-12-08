@@ -34,6 +34,7 @@ class TitleScreenSystem(ISystem):
         self.background = pygame.Surface(engine.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
+        self.engine.input_box.value = ''
 
     def update(self, time):  # TODO use DrawTextSystem for this
         # Length of one line (in characters)

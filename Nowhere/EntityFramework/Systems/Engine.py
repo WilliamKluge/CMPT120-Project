@@ -111,8 +111,12 @@ class Engine(object):
         :param system: Process to remove
         :return: None
         """
-        system.end()
-        self.system_queue.remove(system)
+        try:
+            system.end()
+            self.system_queue.remove(system)
+        except ValueError:
+            # ValueError happens because the item no longer exists, and that's fine cause we were doing that anyways!
+            return
 
     def add_location(self, location, coordinate):
         """
@@ -146,6 +150,19 @@ class Engine(object):
         :return: None
         """
         self.__ending_conditions.append(condition)
+
+    def reset_data(self):
+        """
+        Resets all data in the engine to its default values
+        :return:
+        """
+        self.locations = dict()  # Stores locations in the game
+        self.character = None  # Character of the game
+        self.entities = []  # Entities of the game engine TODO move locations and character here
+        self.system_queue = []  # The processes to be run the update loop
+        self.__ending_conditions = []
+        self.__handled_systems = []  # Systems controlled by other systems can be run without checking their end state
+        self.events = []
 
     @staticmethod
     def vertical_add(*iterables):

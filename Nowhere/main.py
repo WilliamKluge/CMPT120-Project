@@ -22,10 +22,7 @@ from Nowhere.EntityFramework.Systems.Engine import Engine
 from Nowhere.EntityFramework.Systems.ImplementedSystems.TitleScreenSystem import TitleScreenSystem
 
 
-def main():
-    # Game engine
-    engine = Engine()
-
+def init_data(engine):
     # Add ending conditions
     engine.add_end_condition(TurnLossCondition(engine))
     stick_river_loss_condition = StickRiverLossCondition(engine)
@@ -167,6 +164,13 @@ def main():
     engine.add_location(south_river, (-1, -2, 0))
     engine.add_character(player)
     engine.add_entity(game_map)
+
+
+def main():
+    # Game engine
+    engine = Engine()
+
+    init_data(engine)
 
     # Starts the engine updating process
     engine.update()

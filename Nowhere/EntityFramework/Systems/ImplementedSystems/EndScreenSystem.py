@@ -25,6 +25,7 @@ class EndScreenSystem(ISystem):
         self.background = pygame.Surface(self.engine.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((100, 100, 100))
+        self.__continue_program = False
 
     def update(self, time):
         # Remove all systems from the engine queue
@@ -55,12 +56,14 @@ class EndScreenSystem(ISystem):
             if x.type == pygame.KEYDOWN:
                 if x.key == pygame.K_y:
                     # If the pressed key was y, spawn a new main process
+                    self.engine.reset_data()
                     import Nowhere.main as new
-                    new.main()
+                    new.init_data(self.engine)
+                    self.__continue_program = True
                 # Cycles through all events and checks if any are of type KEYDOWN
                 return True
 
         return False  # Occurs if no events were of type KEYDOWN
 
     def end(self):
-        self.engine.continue_updating = False
+        self.engine.continue_updating = self.__continue_program
