@@ -8,6 +8,7 @@ import pygame
 from pygame.locals import *
 
 import Nowhere.PygameLibraries.eztext as eztext
+from Nowhere.EntityFramework.Systems.ImplementedSystems.EndScreenSystem import EndScreenSystem
 
 
 class Engine(object):
@@ -97,8 +98,9 @@ class Engine(object):
                 # Iterate through the game ending conditions
                 if condition.condition_met():
                     # If the condition to end the game has been met, print its message and return
-                    print(condition.ending_message())  # TODO put this into the GUI
-                    return
+                    end_system = EndScreenSystem(self)
+                    end_system.set_using(condition.ending_message())
+                    self.add_system(end_system)
 
             # Blit everything to the screen
             pygame.display.flip()
